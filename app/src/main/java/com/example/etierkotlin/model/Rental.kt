@@ -1,7 +1,7 @@
 package com.example.etierkotlin.model
 
 data class Rental(
-    val renterId: Int,
+    val renterId: String,
     val itemName:String,
     val category:String,
     val renterFirstName:String,
