@@ -1,20 +1,42 @@
-package com.example.etierkotlin
+package com.example.itemmanagement
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var buttonAddRental: Button
+    private lateinit var buttonViewRentals: Button
+    private lateinit var buttonReports: Button
+    private lateinit var dbHelper: RentalDbHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        db = RentalDbHelper(this)
+
+        buttonAddRental = findViewById (R.id.buttonAddRental)
+        buttonViewRentals = findViewById (R.id.buttonViewRentals)
+        buttonReports = findViewById (R.id.buttonReports)
+
+        buttonAddRental.setOnClickListener {
+            val intent = Intent(this, AddRentalActivity::class.java)
+            startActivity(intent)
+        }
+
+        buttonViewRentals.setOnClickListener {
+            val intent = Intent(this, ViewRentalsActivity::class.java)
+            startActivity(intent)
+        }
+
+        buttonReports.setOnClickListener {
+            val intent = Intent(this, ReportsActivity::class.java)
+            startActivity(intent)
         }
     }
+
 }
