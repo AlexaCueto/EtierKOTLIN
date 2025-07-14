@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        db = RentalDbHelper(this)
+        db = (this)
 
         buttonAddRental = findViewById (R.id.buttonAddRental)
         buttonViewRentals = findViewById (R.id.buttonViewRentals)

@@ -28,17 +28,7 @@ class RentalDbHelper(context: Context): SQLiteOpenHelper(context, DB_NAME, null,
 
     override fun onCreate(db: SQLiteDatabase) {
         val query = """
-            REATE TABLE $TB_NAME (
-                $COL_RENTER_ID TEXT PRIMARY KEY,
-                $COL_ITEM_NAME TEXT,
-                $COL_CATEGORY TEXT,
-                $COL_FIRST_NAME TEXT,
-                $COL_LAST_NAME TEXT,
-                $COL_RENTAL_DATE TEXT,
-                $COL_RETURN_DATE TEXT, 
-                $COL_PRICE REAL,
-                $COL_STATUS TEXT,
-                $COL_NOTES TEXT
+           
             )
         """.trimIndent()
         db.execSQL(query)
