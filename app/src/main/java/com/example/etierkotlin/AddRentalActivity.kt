@@ -78,7 +78,14 @@ class AddRentalActivity : AppCompatActivity() {
 
     private fun saveRentalRecord() {
         val itemName = editItemName.text.toString().trim()
-        val category = spinnerCategory.selectedItem.toString()
+        val selectedCategory = spinnerCategory.selectedItem.toString()
+        val categoryEnum = ApparelCategory.fromDisplayName(selectedCategory)
+
+        if (categoryEnum == null) {
+            Toast.makeText(this, "Invalid Category Selected!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val renterFirstName = editRenterFName.text.toString().trim()
         val renterLastName = editRenterLName.text.toString().trim()
         val rentalDate = editRentalDate.text.toString().trim()
@@ -96,7 +103,7 @@ class AddRentalActivity : AppCompatActivity() {
             val rental = Rental(
                 renterId = renterId,
                 itemName = itemName,
-                category = category,
+                category = categoryEnum.displayName,
                 renterFirstName = renterFirstName,
                 renterLastName = renterLastName,
                 rentalDate = rentalDate,
@@ -109,13 +116,13 @@ class AddRentalActivity : AppCompatActivity() {
             val success = dbHelper.addRental(rental)
 
             if (success) {
-                Toast.makeText(this, "Your Rental record added!/n", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Rental record added!", Toast.LENGTH_SHORT).show()
                 clearFields()
             } else {
-                Toast.makeText(this, "Error adding record./n", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error adding record.", Toast.LENGTH_SHORT).show()
             }
         } else {
-            Toast.makeText(this, "Please fill out all required fields./n", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Please fill out all required fields.", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -8,7 +8,7 @@ import com.example.etier.database.RentalDbHelper
 
 class ViewRentalsActivity : AppCompatActivity() {
 
-    private lateinit var listViewRentals: ListView
+    private lateinit var recyclerViewRentals: ListView
     private lateinit var dbHelper: RentalDbHelper
     private lateinit var adapter: RentalAdapter
 
@@ -16,7 +16,8 @@ class ViewRentalsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_rentals)
 
-        listViewRentals = findViewById(R.id.listViewRentals)
+        recyclerViewRentals = findViewById(R.id.recyclerViewRentals)
+        recyclerViewRentals.layoutManager = LinearLayoutManager(this)
 
         dbHelper = RentalDbHelper(this)
         refreshRentalList()
@@ -31,6 +32,6 @@ class ViewRentalsActivity : AppCompatActivity() {
         }
 
         adapter = RentalAdapter(this, rentals)
-        listViewRentals.adapter = adapter
+        recyclerViewRentals.adapter = adapter
     }
 }
