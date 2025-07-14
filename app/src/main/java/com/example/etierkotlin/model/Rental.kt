@@ -3,6 +3,7 @@ package com.example.etierkotlin.model
 data class Rental(
     val renterId: String,
     val itemName:String,
+    val imageName: String,
     val category:String,
     val renterFirstName:String,
     val renterLastName:String,

@@ -6,12 +6,14 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.etier.database.RentalDbHelper
-import com.example.etierkotlin.model.Rental
+import com.example.etier.model.Rental
+import com.example.etier.utils.Utils
 import java.util.*
 
 class AddRentalActivity : AppCompatActivity() {
-    private lateinit var editItemName: EditText
+
     private lateinit var spinnerCategory: Spinner
+    private lateinit var spinnerItemName: Spinner
     private lateinit var editRenterFName: EditText
     private lateinit var editRenterLName: EditText
     private lateinit var editRentalDate: EditText
@@ -29,8 +31,8 @@ class AddRentalActivity : AppCompatActivity() {
 
         dbHelper = RentalDbHelper(this)
 
-        editItemName = findViewById(R.id.editItemName)
         spinnerCategory = findViewById(R.id.spinnerCategory)
+        spinnerItemName = findViewById(R.id.spinnerItemName)
         editRenterFName = findViewById(R.id.editRenterFName)
         editRenterLName = findViewById(R.id.editRenterLName)
         editRentalDate = findViewById(R.id.editRentalDate)
@@ -40,25 +42,51 @@ class AddRentalActivity : AppCompatActivity() {
         editNotes = findViewById(R.id.editNotes)
         buttonSaveRental = findViewById(R.id.buttonSaveRental)
 
-        //spinners
-        setupSpinners()
-
-        //date pickers
+        setupCategorySpinner()
+        setupStatusSpinner()
         setupDatePicker(editRentalDate)
         setupDatePicker(editReturnDate)
 
-        //button click
         buttonSaveRental.setOnClickListener {
             saveRentalRecord()
         }
     }
 
-    private fun setupSpinners(){
-        val categories = listOf("Maxi Dresses", "Formal Gowns")
-        val statusOptions = listOf("Rented", "Returned")
+    private fun setupCategorySpinner() {
+        val categories = listOf("Maxi Dress", "Formal Gown")
+        val categoryAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerCategory.adapter = categoryAdapter
 
-        spinnerCategory.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, categories)
-        spinnerStatus.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, statusOptions)
+        spinnerCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>, view: android.view.View, position: Int, id: Long
+            ) {
+                val selectedCategory = categories[position]
+                setupItemNameSpinner(selectedCategory)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+    }
+
+    private fun setupItemNameSpinner(category: String) {
+        val items = when (category) {
+            "Maxi Dress" -> listOf("Maxi Dress 1", "Maxi Dress 2", "Maxi Dress 3", "Maxi Dress 4")
+            "Formal Gown" -> listOf("Formal Gown 1", "Formal Gown 2", "Formal Gown 3", "Formal Gown 4")
+            else -> listOf()
+        }
+
+        val itemAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, items)
+        itemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerItemName.adapter = itemAdapter
+    }
+
+    private fun setupStatusSpinner() {
+        val statuses = listOf("Rented", "Returned")
+        val statusAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, statuses)
+        statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerStatus.adapter = statusAdapter
     }
 
     @SuppressLint("DefaultLocale")
@@ -77,15 +105,8 @@ class AddRentalActivity : AppCompatActivity() {
     }
 
     private fun saveRentalRecord() {
-        val itemName = editItemName.text.toString().trim()
+        val itemName = spinnerItemName.selectedItem?.toString() ?: ""
         val selectedCategory = spinnerCategory.selectedItem.toString()
-        val categoryEnum = ApparelCategory.fromDisplayName(selectedCategory)
-
-        if (categoryEnum == null) {
-            Toast.makeText(this, "Invalid Category Selected!", Toast.LENGTH_SHORT).show()
-            return
-        }
-
         val renterFirstName = editRenterFName.text.toString().trim()
         val renterLastName = editRenterLName.text.toString().trim()
         val rentalDate = editRentalDate.text.toString().trim()
@@ -99,18 +120,20 @@ class AddRentalActivity : AppCompatActivity() {
             && rentalDate.isNotEmpty() && returnDate.isNotEmpty() && price != null
         ) {
             val renterId = UUID.randomUUID().toString().take(8)
+            val imageName = Utils.getImageNameForItem(itemName)
 
             val rental = Rental(
                 renterId = renterId,
                 itemName = itemName,
-                category = categoryEnum.displayName,
+                category = selectedCategory,
                 renterFirstName = renterFirstName,
                 renterLastName = renterLastName,
                 rentalDate = rentalDate,
                 returnDate = returnDate,
                 price = price,
                 status = status,
-                notes = notes
+                notes = notes,
+                imageName = imageName
             )
 
             val success = dbHelper.addRental(rental)
@@ -126,15 +149,15 @@ class AddRentalActivity : AppCompatActivity() {
         }
     }
 
-    private fun clearFields(){
-        editItemName.text.clear()
+    private fun clearFields() {
+        spinnerCategory.setSelection(0)
+        spinnerItemName.setSelection(0)
         editRenterFName.text.clear()
         editRenterLName.text.clear()
         editRentalDate.text.clear()
         editReturnDate.text.clear()
         editPrice.text.clear()
         editNotes.text.clear()
-        spinnerCategory.setSelection(0)
         spinnerStatus.setSelection(0)
     }
 }

@@ -10,12 +10,13 @@ class RentalDbHelper(context: Context): SQLiteOpenHelper(context, DB_NAME, null,
 
     companion object {
         private const val DB_NAME = "etier_rental.db"
-        private const val DB_VER = 1
+        private const val DB_VER = 2
         private const val TB_NAME = "rentals"
 
         //column  names
         private const val COL_RENTER_ID = "renterId"
         private const val COL_ITEM_NAME = "itemName"
+        private const val COL_IMAGE_NAME = "imageName"
         private const val COL_CATEGORY = "category"
         private const val COL_FIRST_NAME = "renterFirstName"
         private const val COL_LAST_NAME = "renterLastName"
@@ -31,6 +32,7 @@ class RentalDbHelper(context: Context): SQLiteOpenHelper(context, DB_NAME, null,
             CREATE TABLE $TB_NAME (
                 $COL_RENTER_ID TEXT PRIMARY KEY,
                 $COL_ITEM_NAME TEXT,
+                $COL_IMAGE_NAME TEXT,
                 $COL_CATEGORY TEXT,
                 $COL_FIRST_NAME TEXT,
                 $COL_LAST_NAME TEXT,
@@ -55,6 +57,7 @@ class RentalDbHelper(context: Context): SQLiteOpenHelper(context, DB_NAME, null,
         val cv = ContentValues().apply {
             put(COL_RENTER_ID, rental.renterId)
             put(COL_ITEM_NAME, rental.itemName)
+            put(COL_IMAGE_NAME, rental.imageName)
             put(COL_CATEGORY, rental.category)
             put(COL_FIRST_NAME, rental.renterFirstName)
             put(COL_LAST_NAME, rental.renterLastName)
@@ -79,6 +82,7 @@ class RentalDbHelper(context: Context): SQLiteOpenHelper(context, DB_NAME, null,
             val rental = Rental(
                 renterId = cursor.getString(0),
                 itemName = cursor.getString(1),
+                imageName = cursor.getString(10),
                 category = cursor.getString(2),
                 renterFirstName = cursor.getString(3),
                 renterLastName = cursor.getString(4),
@@ -100,6 +104,7 @@ class RentalDbHelper(context: Context): SQLiteOpenHelper(context, DB_NAME, null,
         val db = writableDatabase
         val cv = ContentValues().apply {
             put(COL_ITEM_NAME, rental.itemName)
+            put(COL_IMAGE_NAME, rental.imageName)
             put(COL_CATEGORY, rental.category)
             put(COL_FIRST_NAME, rental.renterFirstName)
             put(COL_LAST_NAME, rental.renterLastName)
