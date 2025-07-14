@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">EtierKOTLIN</string>
+    <string name="app_name">Etier Kotlin</string>
+    <string name="title_add_rental">Add Rental</string>
+    <string name="hint_item_name">Item Name</string>
+    <string name="hint_renter_first_name">Renter First Name</string>
+    <string name="hint_renter_last_name">Renter Last Name</string>
+    <string name="hint_rental_date">Rental Date (YYYY-MM-DD)</string>
+    <string name="hint_return_date">Return Date (YYYY-MM-DD)</string>
+    <string name="hint_price">Price</string>
+    <string name="hint_notes">Notes</string>
+    <string name="button_save_rental">Save Rental</string>
 </resources>
