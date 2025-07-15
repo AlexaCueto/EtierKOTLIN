@@ -1,14 +1,16 @@
 package com.example.etierkotlin
 
+import com.example.etierkotlin.adapter.RentalAdapter
 import android.os.Bundle
-import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.etier.database.RentalDbHelper
 
 class ViewRentalsActivity : AppCompatActivity() {
 
-    private lateinit var recyclerViewRentals: ListView
+    private lateinit var recyclerViewRentals: RecyclerView
     private lateinit var dbHelper: RentalDbHelper
     private lateinit var adapter: RentalAdapter
 
@@ -31,7 +33,7 @@ class ViewRentalsActivity : AppCompatActivity() {
             return
         }
 
-        adapter = RentalAdapter(this, rentals)
+        adapter = RentalAdapter(rentals, this)
         recyclerViewRentals.adapter = adapter
     }
 }
