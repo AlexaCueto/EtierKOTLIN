@@ -1,6 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_reports"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="@drawable/bg_light"
+    tools:context=".ReportsActivity">
+
+    <!-- ETIER Logo -->
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="220dp"
+        android:layout_height="90dp"
+        android:importantForAccessibility="no"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="48dp"
+        app:srcCompat="@drawable/etier_logo_transparent" />
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/textViewReportTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rental Reports"
+        android:textSize="22sp"
+        android:textColor="#E5B410"
+        android:textStyle="bold"
+        android:fontFamily="@font/proximanova_regular"
+        app:layout_constraintTop_toBottomOf="@id/imageViewLogo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Report Summary Container -->
+    <LinearLayout
+        android:id="@+id/summaryContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_container"
+        android:padding="24dp"
+        android:elevation="4dp"
+        app:layout_constraintTop_toBottomOf="@id/textViewReportTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp">
+
+        <TextView
+            android:id="@+id/textTotalRentals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total Rentals: 0"
+            android:textColor="#0085A4"
+            android:textSize="16sp"
+            android:fontFamily="@font/proximanova_regular"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/textTotalRevenue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total Revenue: ₱0.00"
+            android:textColor="#0085A4"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/proximanova_regular"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/textMostRentedCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Most Rented Category: None"
+            android:textColor="#0085A4"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/proximanova_regular"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <!-- Reports RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewReports"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:clipToPadding="false"
+        android:paddingBottom="12dp"
+        app:layout_constraintTop_toBottomOf="@id/summaryContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/buttonBack"
+        tools:listitem="@layout/recycler_item_rental" />
+
+    <!-- Back Button -->
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#E2AC02"
+        android:fontFamily="@font/proximanova_regular"
+        android:text="Back"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewReports" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

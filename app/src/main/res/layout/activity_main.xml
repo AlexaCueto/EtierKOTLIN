@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_light"
     android:padding="24dp"
     tools:context=".MainActivity">
 
@@ -15,107 +15,113 @@
         android:layout_height="100dp"
         android:layout_marginTop="80dp"
         android:importantForAccessibility="no"
-        app:srcCompat="@drawable/etier_logo_transparent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/etier_logo_transparent" />
 
     <!-- Welcome Text -->
     <TextView
         android:id="@+id/textViewWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Admin Dashboard"
-        android:textSize="23sp"
-        android:letterSpacing="0.02"
-        android:textColor="#E5B410"
-        android:textStyle="bold"
-        android:fontFamily="@font/proximanova_regular"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/MainLogo"
+        android:fontFamily="@font/proximanova_regular"
+        android:letterSpacing="0.02"
+        android:text="Admin Dashboard"
+        android:textColor="#E5B410"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/MainLogo" />
 
     <!-- Frosted Glass Container -->
     <LinearLayout
         android:id="@+id/buttonContainer"
-        android:layout_width="0dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/rounded_container"
-        android:padding="24dp"
         android:layout_marginTop="32dp"
-        app:layout_constraintTop_toBottomOf="@id/textViewWelcome"
+        android:background="@drawable/rounded_container"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:elevation="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/textViewWelcome">
 
         <!-- Add Rental -->
         <Button
             android:id="@+id/buttonAddRental"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Rental"
-            android:enabled="false"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
             android:backgroundTint="#e2ac02"
+            android:enabled="false"
+            android:fontFamily="@font/proximanova_regular"
+            android:text="Add Rental"
+            android:textColor="#FFFFFF"
             android:textSize="18sp"
-            android:fontFamily="@font/proximanova_regular" />
+            android:elevation="6dp"
+            android:textStyle="bold" />
 
         <!-- View Rentals -->
         <Button
             android:id="@+id/buttonViewRentals"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="View Rentals"
-            android:enabled="false"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:backgroundTint="#e2ac02"
-            android:textSize="18sp"
             android:layout_marginTop="12dp"
-            android:fontFamily="@font/proximanova_regular" />
+            android:backgroundTint="#e2ac02"
+            android:enabled="false"
+            android:fontFamily="@font/proximanova_regular"
+            android:text="View Rentals"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:elevation="6dp"
+            android:textStyle="bold" />
 
         <!-- Reports -->
         <Button
             android:id="@+id/buttonReports"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Reports"
-            android:enabled="false"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:backgroundTint="#e2ac02"
-            android:textSize="18sp"
             android:layout_marginTop="12dp"
-            android:fontFamily="@font/proximanova_regular" />
+            android:backgroundTint="#e2ac02"
+            android:enabled="false"
+            android:fontFamily="@font/proximanova_regular"
+            android:text="Reports"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:elevation="6dp"
+            android:textStyle="bold" />
 
         <!-- Update Rental -->
         <Button
             android:id="@+id/buttonUpdateRental"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Update Rental"
-            android:enabled="false"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:backgroundTint="#e2ac02"
-            android:textSize="18sp"
             android:layout_marginTop="12dp"
-            android:fontFamily="@font/proximanova_regular" />
+            android:backgroundTint="#e2ac02"
+            android:enabled="false"
+            android:fontFamily="@font/proximanova_regular"
+            android:text="Update Rental"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:elevation="6dp"
+            android:textStyle="bold" />
 
         <!-- delete Rental -->
         <Button
             android:id="@+id/buttonDeleteRental"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Delete Rental"
-            android:enabled="false"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:backgroundTint="#e2ac02"
-            android:textSize="18sp"
             android:layout_marginTop="12dp"
-            android:fontFamily="@font/proximanova_regular" />
+            android:backgroundTint="#e2ac02"
+            android:enabled="false"
+            android:fontFamily="@font/proximanova_regular"
+            android:text="Delete Rental"
+            android:textColor="#FFFFFF"
+            android:elevation="6dp"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
