@@ -5,24 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_light"
-    android:padding="24dp"
     tools:context=".MainActivity">
 
+
+    <!-- ETIER White Logo -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/mainToolBar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="#E2AC02"
-        app:title="Etier Admin"
-        app:titleTextColor="@android:color/white"
-        app:titleTextAppearance="@style/ToolbarTitleBold"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:layout_constraintTop_toTopOf="parent"
+        android:contentInsetStart="0dp"
+        android:contentInsetLeft="0dp"
+        android:contentInsetStartWithNavigation="0dp"
+        android:padding="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Etier Admin"
+        app:titleTextAppearance="@style/ToolbarTitleBold"
+        app:titleTextColor="@android:color/white" />
 
-
-    <!-- ETIER White Logo -->
     <ImageView
         android:id="@+id/MainLogo"
         android:layout_width="250dp"
@@ -34,33 +38,66 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/etier_logo_transparent" />
 
-    <!-- Welcome Text -->
+    <!-- Frosted Glass Container -->
+
     <TextView
-        android:id="@+id/textViewWelcome"
-        android:layout_width="wrap_content"
+        android:id="@+id/textViewWelcomeMessage"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
         android:fontFamily="@font/proximanova_regular"
         android:letterSpacing="0.02"
-        android:text="Admin Dashboard"
+        android:text="Where Women Wear Confidence"
+        android:textAlignment="center"
         android:textColor="#E5B410"
-        android:textSize="23sp"
-        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/MainLogo" />
 
-    <!-- Frosted Glass Container -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="24dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="24dp" />
+
+    <TextView
+        android:id="@+id/textViewWelcome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/proximanova_regular"
+        android:letterSpacing="0.02"
+        android:text="Admin Dashboard for Apparel Rental Record"
+        android:textAlignment="center"
+        android:textColor="#E5B410"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintTop_toBottomOf="@id/textViewWelcomeMessage" />
+
     <LinearLayout
         android:id="@+id/buttonContainer"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:background="@drawable/rounded_container"
+        android:elevation="6dp"
         android:orientation="vertical"
         android:padding="24dp"
-        android:elevation="6dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewWelcome">
 
@@ -70,12 +107,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#e2ac02"
-            android:enabled="false"
+            android:elevation="6dp"
             android:fontFamily="@font/proximanova_regular"
             android:text="Add Rental"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            android:elevation="6dp"
             android:textStyle="bold" />
 
         <!-- View Rentals -->
@@ -85,12 +121,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:backgroundTint="#e2ac02"
-            android:enabled="false"
+            android:elevation="6dp"
             android:fontFamily="@font/proximanova_regular"
             android:text="View Rentals"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            android:elevation="6dp"
             android:textStyle="bold" />
 
         <!-- Reports -->
@@ -100,12 +135,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:backgroundTint="#e2ac02"
-            android:enabled="false"
+            android:elevation="6dp"
             android:fontFamily="@font/proximanova_regular"
-            android:text="Reports"
+            android:text="Update Rental"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            android:elevation="6dp"
             android:textStyle="bold" />
 
         <!-- Update Rental -->
@@ -115,12 +149,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:backgroundTint="#e2ac02"
-            android:enabled="false"
+            android:elevation="6dp"
             android:fontFamily="@font/proximanova_regular"
-            android:text="Update Rental"
+            android:text="Delete Rental"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            android:elevation="6dp"
             android:textStyle="bold" />
 
         <!-- delete Rental -->
@@ -130,12 +163,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:backgroundTint="#e2ac02"
-            android:enabled="false"
-            android:fontFamily="@font/proximanova_regular"
-            android:text="Delete Rental"
-            android:textColor="#FFFFFF"
             android:elevation="6dp"
-            android:textSize="18sp"
+            android:fontFamily="@font/proximanova_regular"
+            android:text="View Rental Reports"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

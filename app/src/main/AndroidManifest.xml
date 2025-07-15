@@ -23,6 +23,7 @@
         </activity>
 
         <activity android:name=".MainActivity"/>
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".AddRentalActivity" />
         <activity android:name=".ViewRentalsActivity" />
         <!-- <activity android:name=".UpdateRentalActivity" /> -->

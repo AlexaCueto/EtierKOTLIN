@@ -48,16 +48,16 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, ViewRentalsActivity::class.java))
         }
 
-        buttonReports.setOnClickListener {
-            startActivity(Intent(this, ReportsActivity::class.java))
-        }
-
         buttonUpdateRental.setOnClickListener {
             startActivity(Intent(this, UpdateRentalActivity::class.java))
         }
 
         buttonDeleteRental.setOnClickListener {
             startActivity(Intent(this, DeleteRentalsActivity::class.java))
+        }
+
+        buttonReports.setOnClickListener {
+            startActivity(Intent(this, ReportsActivity::class.java))
         }
     }
 

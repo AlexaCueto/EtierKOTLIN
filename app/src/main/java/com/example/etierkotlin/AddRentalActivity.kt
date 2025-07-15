@@ -93,8 +93,8 @@ class AddRentalActivity : AppCompatActivity() {
 
     private fun setupItemNameSpinner(category: String) {
         val items = when (category) {
-            "Maxi Dress" -> listOf("Maxi Dress 1", "Maxi Dress 2", "Maxi Dress 3", "Maxi Dress 4")
-            "Formal Gown" -> listOf("Formal Gown 1", "Formal Gown 2", "Formal Gown 3", "Formal Gown 4")
+            "Maxi Dress" -> listOf("Off-Shoulder Sakura Maxi Dress", "Hibiscus Dream Ruffled Midi", "Royal Blue Tiered Cami Maxi", "Lemon Drop Strapless Maxi")
+            "Formal Gown" -> listOf("Classic Black Halter Neck Gown", "Champagne Sequin Gown", "Rose Gold Sequin Sparkle Gown", "Fuchsia One-Shoulder A-Line Overlay Gown")
             else -> listOf()
         }
 
