@@ -28,16 +28,6 @@ class MainActivity : AppCompatActivity() {
         buttonUpdateRental = findViewById(R.id.buttonUpdateRental)
         buttonDeleteRental = findViewById(R.id.buttonDeleteRental)
 
-        //Disable buttons before login
-        toggleButtons(false)
-
-        //Show Login Dialog
-        val loginDialog = LoginDialog {
-            toggleButtons(true)
-        }
-        loginDialog.isCancelable = false
-        loginDialog.show(supportFragmentManager, "loginDialog")
-
         setupButtons()
     }
 
