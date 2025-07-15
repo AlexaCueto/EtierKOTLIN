@@ -15,8 +15,8 @@
             android:id="@+id/myToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#B3FFD04C"
-            app:title="Admins of Etier"
+            android:background="#E2AC02"
+            app:title="Admins of ETIER"
             app:titleTextColor="@android:color/white"
             app:titleTextAppearance="@style/ToolbarTitleBold"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
@@ -33,7 +33,7 @@
             android:background="@android:color/transparent"
             android:contentDescription="Back"
             android:src="@android:drawable/ic_media_previous"
-            app:tint="#FDCF4C" />
+            app:tint="#E2AC02" />
 
         <TextView
             android:id="@+id/titleText"
@@ -41,13 +41,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="14dp"
-            android:text="Admins of Etier"
-            android:textColor="#FDCF4C"
+            android:text="Admins of ETIER"
+            android:textColor="#E2AC02"
             android:textSize="24sp"
             android:textStyle="bold" />
 
         <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
         android:orientation="horizontal"
@@ -70,7 +70,7 @@
                 android:text="Alexa Joyce Cueto"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:textColor="#ffd04c"
+                android:textColor="#E2AC02"
                 android:layout_marginBottom="4dp" />
 
             <TextView
@@ -98,7 +98,7 @@
     </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
             android:orientation="horizontal"
@@ -120,7 +120,7 @@
                     android:text="Charles Michael Pua"
                     android:textStyle="bold"
                     android:textSize="20sp"
-                    android:textColor="#ffd04c"
+                    android:textColor="#E2AC02"
                     android:layout_marginBottom="4dp" />
 
                 <TextView
@@ -148,7 +148,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
             android:orientation="horizontal"
@@ -166,17 +166,17 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="231dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
                     android:text="Paul Benedict Collo"
-                    android:textColor="#ffd04c"
+                    android:textColor="#E2AC02"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="235dp"
-                    android:layout_height="31dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
                     android:text="May 18, 2005"
                     android:textColor="#E2C478" />
@@ -199,7 +199,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
             android:orientation="horizontal"
@@ -217,17 +217,17 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="231dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
                     android:text="Wenxuan Wei"
-                    android:textColor="#ffd04c"
+                    android:textColor="#E2AC02"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="235dp"
-                    android:layout_height="31dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
                     android:text="August 7, 2005"
                     android:textColor="#E2C478" />
