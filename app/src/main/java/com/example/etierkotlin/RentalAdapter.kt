@@ -4,7 +4,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import com.example.etier.model.Rental
+import com.example.etierkotlin.R
+import com.example.etierkotlin.model.Rental
 
 class RentalAdapter(
     private val rentalList: List<Rental>,
@@ -41,7 +42,7 @@ class RentalAdapter(
         if (imageResId != 0) {
             holder.imageApparel.setImageResource(imageResId)
         } else {
-            holder.imageApparel.setImageResource(R.drawable.ic_default_image)
+            holder.imageApparel.setImageResource(R.drawable.etier_logo_transp)
         }
 
         holder.buttonEditRental.setOnClickListener {

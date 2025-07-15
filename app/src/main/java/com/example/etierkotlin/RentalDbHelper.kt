@@ -10,7 +10,7 @@ class RentalDbHelper(context: Context): SQLiteOpenHelper(context, DB_NAME, null,
 
     companion object {
         private const val DB_NAME = "etier_rental.db"
-        private const val DB_VER = 2
+        private const val DB_VER = 3
         private const val TB_NAME = "rentals"
 
         //column  names
@@ -20,6 +20,7 @@ class RentalDbHelper(context: Context): SQLiteOpenHelper(context, DB_NAME, null,
         private const val COL_CATEGORY = "category"
         private const val COL_FIRST_NAME = "renterFirstName"
         private const val COL_LAST_NAME = "renterLastName"
+        private const val COL_ADDRESS = "renterAddress"
         private const val COL_RENTAL_DATE = "rentalDate"
         private const val COL_RETURN_DATE = "returnDate"
         private const val COL_PRICE = "price"
@@ -36,6 +37,7 @@ class RentalDbHelper(context: Context): SQLiteOpenHelper(context, DB_NAME, null,
                 $COL_CATEGORY TEXT,
                 $COL_FIRST_NAME TEXT,
                 $COL_LAST_NAME TEXT,
+                $COL_ADDRESS TEXT,
                 $COL_RENTAL_DATE TEXT,
                 $COL_RETURN_DATE TEXT, 
                 $COL_PRICE REAL,
@@ -61,6 +63,7 @@ class RentalDbHelper(context: Context): SQLiteOpenHelper(context, DB_NAME, null,
             put(COL_CATEGORY, rental.category)
             put(COL_FIRST_NAME, rental.renterFirstName)
             put(COL_LAST_NAME, rental.renterLastName)
+            put(COL_ADDRESS, rental.renterAddress)
             put(COL_RENTAL_DATE, rental.rentalDate)
             put(COL_RETURN_DATE, rental.returnDate)
             put(COL_PRICE, rental.price)
@@ -86,11 +89,12 @@ class RentalDbHelper(context: Context): SQLiteOpenHelper(context, DB_NAME, null,
                 category = cursor.getString(2),
                 renterFirstName = cursor.getString(3),
                 renterLastName = cursor.getString(4),
+                renterAddress = cursor.getString(6),
                 rentalDate = cursor.getString(5),
                 returnDate = cursor.getString(6),
                 price = cursor.getDouble(7),
-                status = cursor.getString(8),
-                notes = cursor.getString(9)
+                status = cursor.getString(10),
+                notes = cursor.getString(11)
             )
             rentals.add(rental)
         }
@@ -108,6 +112,7 @@ class RentalDbHelper(context: Context): SQLiteOpenHelper(context, DB_NAME, null,
             put(COL_CATEGORY, rental.category)
             put(COL_FIRST_NAME, rental.renterFirstName)
             put(COL_LAST_NAME, rental.renterLastName)
+            put(COL_ADDRESS, rental.renterAddress)
             put(COL_RENTAL_DATE, rental.rentalDate)
             put(COL_RETURN_DATE, rental.returnDate)
             put(COL_PRICE, rental.price)

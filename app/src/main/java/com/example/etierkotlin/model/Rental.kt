@@ -7,6 +7,7 @@ data class Rental(
     val category:String,
     val renterFirstName:String,
     val renterLastName:String,
+    val renterAddress: String,
     val rentalDate:String,
     val returnDate:String,
     val price:Double,
