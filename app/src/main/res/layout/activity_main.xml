@@ -56,9 +56,10 @@
             android:layout_height="wrap_content"
             android:text="Add Rental"
             android:enabled="false"
-            android:textColor="#000000"
-            android:backgroundTint="#ffe401"
-            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:backgroundTint="#e2ac02"
+            android:textSize="18sp"
             android:fontFamily="@font/proximanova_regular" />
 
         <!-- View Rentals -->
@@ -68,10 +69,11 @@
             android:layout_height="wrap_content"
             android:text="View Rentals"
             android:enabled="false"
-            android:textColor="#000000"
-            android:backgroundTint="#ffe401"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:backgroundTint="#e2ac02"
+            android:textSize="18sp"
             android:layout_marginTop="12dp"
-            android:textSize="16sp"
             android:fontFamily="@font/proximanova_regular" />
 
         <!-- Reports -->
@@ -81,10 +83,11 @@
             android:layout_height="wrap_content"
             android:text="Reports"
             android:enabled="false"
-            android:textColor="#000000"
-            android:backgroundTint="#ffe401"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:backgroundTint="#e2ac02"
+            android:textSize="18sp"
             android:layout_marginTop="12dp"
-            android:textSize="16sp"
             android:fontFamily="@font/proximanova_regular" />
 
         <!-- Update Rental -->
@@ -94,23 +97,25 @@
             android:layout_height="wrap_content"
             android:text="Update Rental"
             android:enabled="false"
-            android:textColor="#000000"
-            android:backgroundTint="#ffe401"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:backgroundTint="#e2ac02"
+            android:textSize="18sp"
             android:layout_marginTop="12dp"
-            android:textSize="16sp"
             android:fontFamily="@font/proximanova_regular" />
 
-        <!-- Delete Rental -->
+        <!-- delete Rental -->
         <Button
             android:id="@+id/buttonDeleteRental"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Delete Rental"
             android:enabled="false"
-            android:textColor="#000000"
-            android:backgroundTint="#ffe401"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:backgroundTint="#e2ac02"
+            android:textSize="18sp"
             android:layout_marginTop="12dp"
-            android:textSize="16sp"
             android:fontFamily="@font/proximanova_regular" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

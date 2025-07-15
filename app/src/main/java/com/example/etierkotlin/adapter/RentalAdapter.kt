@@ -1,5 +1,5 @@
 package com.example.etierkotlin.adapter
-
+/*
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +13,7 @@ class RentalAdapter(
     private val rentalList: List<Rental>,
     private val context: Context
 ) : RecyclerView.Adapter<RentalAdapter.RentalViewHolder>() {
-
+/*
     class RentalViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val textRenterId: TextView = itemView.findViewById(R.id.textRenterId)
         val textItemName: TextView = itemView.findViewById(R.id.textItemName)
@@ -61,4 +61,6 @@ class RentalAdapter(
     override fun getItemCount() = rentalList.size
 }
 
+ */
+*/
 

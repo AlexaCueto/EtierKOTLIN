@@ -36,4 +36,4 @@ class ViewRentalsActivity : AppCompatActivity() {
         adapter = RentalAdapter(rentals, this)
         recyclerViewRentals.adapter = adapter
     }
-}
+
