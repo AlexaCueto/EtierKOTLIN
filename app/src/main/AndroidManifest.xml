@@ -13,7 +13,7 @@
         android:theme="@style/Theme.EtierKOTLIN"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +21,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".AddRentalActivity" />
+        <activity android:name=".ViewRentalsActivity" />
+        <activity android:name=".UpdateRentalActivity" />
+        <activity android:name=".DeleteRentalsActivity" />
+        <activity android:name=".ReportsActivity" />
     </application>
 
 </manifest>
