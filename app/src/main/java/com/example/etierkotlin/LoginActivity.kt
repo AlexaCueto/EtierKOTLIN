@@ -13,7 +13,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        buttonOpenLoginDialog = findViewById(R.id.buttonLogin)
+        buttonOpenLoginDialog = findViewById(R.id.btn_login)
 
         buttonOpenLoginDialog.setOnClickListener {
             val loginDialog = LoginDialog {
