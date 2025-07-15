@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#E2AC02"
-            app:title="Admins of ETIER"
+            app:title="ETIER's Profile"
             app:titleTextColor="@android:color/white"
             app:titleTextAppearance="@style/ToolbarTitleBold"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
