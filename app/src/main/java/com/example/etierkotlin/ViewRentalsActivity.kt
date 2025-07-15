@@ -1,5 +1,5 @@
 package com.example.etierkotlin
-/*
+
 import com.example.etierkotlin.adapter.RentalAdapter
 import android.os.Bundle
 import android.widget.Toast
@@ -35,5 +35,5 @@ class ViewRentalsActivity : AppCompatActivity() {
 
         adapter = RentalAdapter(rentals, this)
         recyclerViewRentals.adapter = adapter
-    } */
+    }
 
