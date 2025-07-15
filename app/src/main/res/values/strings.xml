@@ -28,4 +28,6 @@
     <string name="button_action">Action</string>
     <string name="content_desc_item_image">Item image preview</string>
     <string name="text_notes">Notes</string>
+    <string name="title_all_rentals">All Current Rentals</string>
+
 </resources>
