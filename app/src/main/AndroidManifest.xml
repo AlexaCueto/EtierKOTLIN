@@ -25,9 +25,9 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".AddRentalActivity" />
         <activity android:name=".ViewRentalsActivity" />
-        <activity android:name=".UpdateRentalActivity" />
-        <activity android:name=".DeleteRentalsActivity" />
-        <activity android:name=".ReportsActivity" />
+        <!-- <activity android:name=".UpdateRentalActivity" /> -->
+        <!-- <activity android:name=".UpdateRentalActivity" /> -->
+        <!-- <activity android:name=".ReportsActivity" /> -->
     </application>
 
 </manifest>

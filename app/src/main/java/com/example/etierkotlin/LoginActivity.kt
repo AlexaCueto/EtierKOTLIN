@@ -16,10 +16,7 @@ class LoginActivity : AppCompatActivity() {
         buttonOpenLoginDialog = findViewById(R.id.btn_login)
 
         buttonOpenLoginDialog.setOnClickListener {
-            val loginDialog = LoginDialog {
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            }
+            val loginDialog = LoginDialog()
             loginDialog.isCancelable = false
             loginDialog.show(supportFragmentManager, "LoginDialog")
         }

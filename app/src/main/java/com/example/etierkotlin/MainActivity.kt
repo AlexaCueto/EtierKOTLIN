@@ -2,9 +2,13 @@ package com.example.etierkotlin
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.etier.database.RentalDbHelper
+import androidx.appcompat.widget.Toolbar
+import androidx.appcompat.app.AlertDialog
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +24,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        val toolbar: Toolbar = findViewById(R.id.mainToolBar)
+        setSupportActionBar(toolbar)
+
         dbHelper = RentalDbHelper(this)
 
         buttonAddRental = findViewById(R.id.buttonAddRental)
@@ -29,14 +37,6 @@ class MainActivity : AppCompatActivity() {
         buttonDeleteRental = findViewById(R.id.buttonDeleteRental)
 
         setupButtons()
-    }
-
-    private fun toggleButtons(isEnabled: Boolean) {
-        buttonAddRental.isEnabled = isEnabled
-        buttonViewRentals.isEnabled = isEnabled
-        buttonReports.isEnabled = isEnabled
-        buttonUpdateRental.isEnabled = isEnabled
-        buttonDeleteRental.isEnabled = isEnabled
     }
 
     private fun setupButtons() {
@@ -59,5 +59,33 @@ class MainActivity : AppCompatActivity() {
         buttonDeleteRental.setOnClickListener {
             startActivity(Intent(this, DeleteRentalsActivity::class.java))
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.top_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_profile -> {
+                startActivity(Intent(this, ProfileActivity::class.java))
+                true
+            }
+            R.id.menu_exit -> {
+                showExitConfirmationDialog()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showExitConfirmationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Exit App")
+            .setMessage("Are you sure you want to exit?")
+            .setPositiveButton("Yes") { _, _ -> finishAffinity() }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 }

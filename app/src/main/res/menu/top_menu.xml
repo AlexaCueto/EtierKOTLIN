@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_profile"
+        android:title="Admin Profiles"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_exit"
+        android:title="Exit App"
+        app:showAsAction="never" />
+</menu>

@@ -38,7 +38,7 @@ class LoginDialog : DialogFragment() {
                 dismiss() // Call dismiss() on the DialogFragment itself
 
             } else {
-                Toast.makeText(requireContext(), "Invalid Username or Password", Toast.LENGTH_SHORT).show() // Use requireContext()
+                Toast.makeText(requireContext(), "Invalid Username or Password", Toast.LENGTH_SHORT).show()
             }
         }
 
