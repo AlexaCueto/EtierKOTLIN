@@ -1,5 +1,6 @@
 package com.example.etierkotlin
 
+import android.content.Intent
 import com.example.etierkotlin.adapter.RentalAdapter
 import android.os.Bundle
 import android.widget.Toast
@@ -33,7 +34,27 @@ class ViewRentalsActivity : AppCompatActivity() {
             return
         }
 
-        adapter = RentalAdapter(rentals, this)
-        recyclerViewRentals.adapter = adapter
+       val actionType = intent.getStringExtra("actionType") ?: "view"
+
+        adapter = RentalAdapter(rentals, this, actionType) { rental ->
+            when(actionType) {
+                "update" -> {
+                    val intent = Intent(this, UpdateRentalActivity::class.java)
+                    intent.putExtra("rentalId", rental.renterId)
+                    startActivity(intent)
+                }
+                "delete" -> {
+                    val intent = Intent(this, DeleteRentalsActivity::class.java)
+                    intent.putExtra("rentalId", rental.renterId)
+                    startActivity(intent)
+                }
+                else -> {
+                    Toast.makeText(this, "Invalid action type", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+            recyclerViewRentals.adapter = adapter
+
     }
+}
 

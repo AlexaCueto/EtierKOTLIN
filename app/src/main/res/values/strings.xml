@@ -23,8 +23,8 @@
     <string name="text_item_name">Item Name</string>
     <string name="text_category">Category</string>
     <string name="text_renter_name">Renter Name</string>
-    <string name="text_rental_dates">Rental: YYYY-MM-DD to YYYY-MM-DD</string>
-    <string name="text_status">Status: Rented</string>
+    <string name="text_rental_dates">Rental Date: YYYY-MM-DD to YYYY-MM-DD</string>
+    <string name="text_status">Status</string>
     <string name="button_action">Action</string>
     <string name="content_desc_item_image">Item image preview</string>
     <string name="text_notes">Notes</string>

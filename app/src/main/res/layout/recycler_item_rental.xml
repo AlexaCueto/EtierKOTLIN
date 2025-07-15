@@ -19,7 +19,7 @@
             android:id="@+id/textRenterId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/text_renter_id"
+            android:text="Renter ID"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -98,7 +98,7 @@
 
         <!-- Single Action Button -->
         <Button
-            android:id="@+id/buttonActionRental"
+            android:id="@+id/btnUpdateOrDelete"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_gravity="end"
@@ -106,7 +106,7 @@
             android:textSize="12sp"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            android:backgroundTint="#ffe401"
+            android:backgroundTint="#E2AC02"
             android:textColor="#ffffff"
             android:layout_marginTop="8dp" />
     </LinearLayout>
