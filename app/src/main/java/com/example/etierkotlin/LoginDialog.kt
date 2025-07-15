@@ -20,16 +20,17 @@ class LoginDialog(private val onLoginSuccess: () -> Unit) : DialogFragment() {
 
         builder.setView(view)
             .setTitle("DialogLogin")
-            .setPositiveButton("Login") { ->
+            .setPositiveButton("Login") { _, _->
                 if (authenticate(
                         editUsername.text.toString(),
                         editPassword.text.toString()
                     )
                 ) {
                     onLoginSuccess.invoke()
+                    dismiss()
                 }
             }
-            .setNegativeButton("Cancel") { dialog-> dialog.cancel() }
+            .setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
 
         return builder.create()
     }
