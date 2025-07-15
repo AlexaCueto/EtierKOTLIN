@@ -1,41 +1,47 @@
 package com.example.etierkotlin
 
-import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 
-class LoginDialog(private val onLoginSuccess: () -> Unit) : DialogFragment() {
+
+
+class LoginDialog : DialogFragment() {
+    private val username = "admin"
+    private val password = "1234"
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(requireActivity())
-        val inflater = LayoutInflater.from(requireContext())
+        val builder = androidx.appcompat.app.AlertDialog.Builder(requireActivity())
+        val inflater = requireActivity().layoutInflater // Use requireActivity().layoutInflater
         val view = inflater.inflate(R.layout.dialog_login, null)
 
-        // UI elements with IDs
-        val editUsername = view.findViewById<EditText>(R.id.editUsername)
-        val editPassword = view.findViewById<EditText>(R.id.editPassword)
+        val usernameInput = view.findViewById<EditText>(R.id.editUsername)
+        val passwordInput = view.findViewById<EditText>(R.id.editPassword)
+        val loginButton = view.findViewById<Button>(R.id.btnLogin)
 
-        builder.setView(view)
-            .setTitle("DialogLogin")
-            .setPositiveButton("Login") { _, _->
-                if (authenticate(
-                        editUsername.text.toString(),
-                        editPassword.text.toString()
-                    )
-                ) {
-                    onLoginSuccess.invoke()
-                    dismiss()
-                }
+        val dialog = builder.setView(view).create()
+
+        loginButton.setOnClickListener {
+            val enteredUsername = usernameInput.text.toString()
+            val enteredPassword = passwordInput.text.toString()
+
+            if (enteredUsername == username && enteredPassword == password) {
+                Toast.makeText(requireContext(), "Login Successful", Toast.LENGTH_SHORT).show()
+
+                // Redirect to MainActivity
+                val intent = Intent(requireContext(), MainActivity::class.java)
+                startActivity(intent)
+                dismiss() // Call dismiss() on the DialogFragment itself
+
+            } else {
+                Toast.makeText(requireContext(), "Invalid Username or Password", Toast.LENGTH_SHORT).show() // Use requireContext()
             }
-            .setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
+        }
 
-        return builder.create()
-    }
-
-    private fun authenticate(username: String, password: String): Boolean {
-        return username == "admin" && password == "password123"
+        return dialog
     }
 }
