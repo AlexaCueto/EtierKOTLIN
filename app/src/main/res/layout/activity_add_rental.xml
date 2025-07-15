@@ -126,6 +126,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:text="@string/button_save_rental"
+        android:backgroundTint="#ffe401"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:layout_marginTop="16dp" />
