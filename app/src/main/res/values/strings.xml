@@ -13,4 +13,10 @@
     <string name="button_save_rental">Save Rental</string>
     <string name="button_back">Back</string>
     <string name="tagline">EFFORTLESS FASHION,\nFOR EVERY OCCASION.</string>
+    <string name="title_confirm_delete">Confirm Delete</string>
+    <string name="message_confirm_delete">Are you sure you want to delete this record?</string>
+    <string name="button_yes">Yes</string>
+    <string name="button_no">No</string>
+    <string name="title_edit_rental">Edit Rental</string>
+    <string name="button_save_changes">Save Changes</string>
 </resources>
