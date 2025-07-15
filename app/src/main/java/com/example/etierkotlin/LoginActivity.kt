@@ -1,0 +1,27 @@
+package com.example.etierkotlin
+
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+
+class LoginActivity : AppCompatActivity() {
+
+    private lateinit var buttonOpenLoginDialog: Button
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
+
+        buttonOpenLoginDialog = findViewById(R.id.buttonLogin)
+
+        buttonOpenLoginDialog.setOnClickListener {
+            val loginDialog = LoginDialog {
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
+            loginDialog.isCancelable = false
+            loginDialog.show(supportFragmentManager, "LoginDialog")
+        }
+    }
+}
