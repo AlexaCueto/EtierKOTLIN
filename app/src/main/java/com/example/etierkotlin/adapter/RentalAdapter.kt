@@ -1,3 +1,5 @@
+package com.example.etierkotlin.adapter
+
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +31,7 @@ class RentalAdapter(
         return RentalViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder:RentalViewHolder, position: Int){
+    override fun onBindViewHolder(holder: RentalViewHolder, position: Int){
         val rental = rentalList[position]
         holder.textRenterId.text = "ID: ${rental.renterId}"
         holder.textItemName.text = rental.itemName
