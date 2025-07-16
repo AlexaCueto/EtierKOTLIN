@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
@@ -12,14 +14,21 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.etier.database.RentalDbHelper
 import com.example.etierkotlin.model.Rental
 import com.example.etierkotlin.utils.Utils
-import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
 class AddRentalActivity : AppCompatActivity() {
 
+    private lateinit var retrofit: Retrofit
+    private lateinit var locationIQApi: LocationIQApi
+    private lateinit var addressSuggestions: ArrayAdapter<String>
     private lateinit var spinnerCategory: Spinner
     private lateinit var spinnerItemName: Spinner
     private lateinit var editRenterFName: EditText
@@ -40,13 +49,7 @@ class AddRentalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_rental)
 
-        dbHelper = RentalDbHelper(this)
-
-        // Initialize Places API if not yet initialized
-        if (!Places.isInitialized()) {
-            Places.initialize(applicationContext, "YOUR_API_KEY_HERE")
-        }
-
+        //Initialize views first
         spinnerCategory = findViewById(R.id.spinnerCategory)
         spinnerItemName = findViewById(R.id.spinnerItemName)
         editRenterFName = findViewById(R.id.editRenterFName)
@@ -58,6 +61,22 @@ class AddRentalActivity : AppCompatActivity() {
         editNotes = findViewById(R.id.editNotes)
         editAddress = findViewById(R.id.editAddress)
         buttonSaveRental = findViewById(R.id.buttonSaveRental)
+        val buttonBack = findViewById<Button>(R.id.buttonBack)
+
+        dbHelper = RentalDbHelper(this)
+
+        retrofit = Retrofit.Builder()
+            .baseUrl("https://api.locationiq.com/v1/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        locationIQApi = retrofit.create(LocationIQApi::class.java)
+
+        //EditAddress to AutoCompleteTextView before setting adapter
+        addressSuggestions = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, mutableListOf())
+        (editAddress as AutoCompleteTextView).setAdapter(addressSuggestions)
+
+        setupAddressAutocomplete()
 
         setupCategorySpinner()
         setupStatusSpinner()
@@ -69,10 +88,32 @@ class AddRentalActivity : AppCompatActivity() {
         }
 
         setupAutocompleteLauncher()
-
         editAddress.setOnClickListener {
             startAutocomplete()
         }
+
+        buttonBack.setOnClickListener{
+            finish()
+        }
+    }
+
+    private fun setupAutocompleteLauncher() {
+        autocompleteLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val place = Autocomplete.getPlaceFromIntent(result.data!!)
+                editAddress.setText(place.address)
+            } else if (result.resultCode == AutocompleteActivity.RESULT_ERROR) {
+                // Handle the error.
+                val status = Autocomplete.getStatusFromIntent(result.data!!)
+                Toast.makeText(this, "Error: ${status.statusMessage}", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun startAutocomplete() {
+        val fields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS)
+        val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).build(this)
+        autocompleteLauncher.launch(intent)
     }
 
     private fun setupCategorySpinner() {
@@ -126,23 +167,37 @@ class AddRentalActivity : AppCompatActivity() {
     }
 
     //for the autocomplete service
-    private fun setupAutocompleteLauncher() {
-        autocompleteLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                val place = Autocomplete.getPlaceFromIntent(result.data!!)
-                editAddress.setText(place.address)
-            } else if (result.resultCode == RESULT_CANCELED) {
-                Toast.makeText(this, "Autocomplete canceled", Toast.LENGTH_SHORT).show()
+    private fun setupAddressAutocomplete() {
+        editAddress.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val input = s.toString()
+                if (input.length >= 3) {
+                    locationIQApi.getAutocomplete("pk.541d4664ed831aa3c3f789bbbcf20a41", input)
+                        .enqueue(object : Callback<List<LocationIQPlace>> {
+                            override fun onResponse(
+                                call: Call<List<LocationIQPlace>>,
+                                response: retrofit2.Response<List<LocationIQPlace>>
+                            ) {
+                                if (response.isSuccessful) {
+                                    val places = response.body()?.map { it.display_name } ?: listOf()
+                                    addressSuggestions.clear()
+                                    addressSuggestions.addAll(places)
+                                    addressSuggestions.notifyDataSetChanged()
+                                }
+                            }
+
+                            override fun onFailure(call: Call<List<LocationIQPlace>>, t: Throwable) {
+                                Toast.makeText(this@AddRentalActivity, "Failed to fetch addresses", Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                }
             }
-        }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
     }
 
-    private fun startAutocomplete() {
-        val fields = listOf(Place.Field.ADDRESS)
-        val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
-            .build(this)
-        autocompleteLauncher.launch(intent)
-    }
 
     private fun saveRentalRecord() {
         val itemName = spinnerItemName.selectedItem?.toString() ?: ""

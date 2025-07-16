@@ -180,4 +180,18 @@ class RentalDbHelper(context: Context): SQLiteOpenHelper(context, DB_NAME, null,
         db.close()
         return isRented
     }
+
+    fun getItemNames(category: String): List<String> {
+        val items = mutableListOf<String>()
+        val db = readableDatabase
+        val cursor = db.rawQuery("SELECT DISTINCT itemName FROM rentals", null)
+        if (cursor.moveToFirst()) {
+            do {
+                items.add(cursor.getString(cursor.getColumnIndexOrThrow("itemName")))
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        return items
+    }
+
 }

@@ -3,6 +3,7 @@ package com.example.etierkotlin
 import android.content.Intent
 import com.example.etierkotlin.adapter.RentalAdapter
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,15 +16,22 @@ class ViewRentalsActivity : AppCompatActivity() {
     private lateinit var dbHelper: RentalDbHelper
     private lateinit var adapter: RentalAdapter
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_rentals)
+        val buttonBack = findViewById<Button>(R.id.buttonBack)
 
         recyclerViewRentals = findViewById(R.id.recyclerViewRentals)
         recyclerViewRentals.layoutManager = LinearLayoutManager(this)
 
         dbHelper = RentalDbHelper(this)
         refreshRentalList()
+
+        buttonBack.setOnClickListener{
+            finish()
+        }
     }
 
     private fun refreshRentalList() {
