@@ -12,16 +12,6 @@
         android:gravity="center_vertical"
         android:layout_marginTop="4dp">
 
-        <Button
-            android:id="@+id/buttonBack"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:text="@string/button_back"
-            android:backgroundTint="#ffe401"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:layout_marginTop="0dp" />
-
         <TextView
             android:id="@+id/textTitle"
             android:layout_width="0dp"
@@ -30,10 +20,8 @@
             android:text="@string/title_add_rental"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:gravity="start"
-            android:layout_marginStart="50dp" />
+            android:gravity="center"/>
     </LinearLayout>
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -164,15 +152,38 @@
                     android:layout_marginTop="8dp" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/buttonSaveRental"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="@string/button_save_rental"
-                android:backgroundTint="#ffe401"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:layout_marginTop="16dp" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                style="?android:attr/buttonBarStyle">
+
+                <Button
+                    android:id="@+id/buttonBack"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="@string/button_back"
+                    android:backgroundTint="#808080"
+                    android:textColor="#FFFFFF"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    style="?android:attr/buttonBarButtonStyle" />
+
+                <Button
+                    android:id="@+id/buttonSaveRental"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="@string/button_save_rental"
+                    android:backgroundTint="#ffe401"
+                    android:textColor="#FFFFFF"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    style="?android:attr/buttonBarButtonStyle" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
