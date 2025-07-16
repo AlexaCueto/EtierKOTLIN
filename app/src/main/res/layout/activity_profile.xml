@@ -83,7 +83,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Team Leader and Frontend Developer"
+                android:text="Team Leader and Backend Developer"
                 android:textColor="#E2C478" />
 
         </LinearLayout>
