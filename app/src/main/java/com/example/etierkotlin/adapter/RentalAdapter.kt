@@ -1,6 +1,7 @@
 package com.example.etierkotlin.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,12 +43,19 @@ class RentalAdapter(
         holder.textRentalDates.text = "Rental: ${rental.rentalDate} | Return: ${rental.returnDate}"
         holder.textStatus.text = "Status: ${rental.status}"
 
-        val imageResId = context.resources.getIdentifier(rental.imageName, "drawable", context.packageName)
-        if (imageResId != 0) {
-            holder.imageApparel.setImageResource(imageResId)
+        val cleanImageName = rental.imageName
+            .replace(".jpg", "")
+            .replace(".png", "")
+            .replace(".webp", "")
+
+        val imageResIdFromCleaned = context.resources.getIdentifier(cleanImageName, "drawable", context.packageName)
+
+        if (imageResIdFromCleaned != 0) {
+            holder.imageApparel.setImageResource(imageResIdFromCleaned)
         } else {
             holder.imageApparel.setImageResource(R.drawable.etier_logo_transp)
         }
+        Log.d("RentalAdapter", "Image name: ${rental.imageName}, Cleaned Name: $cleanImageName, ResID: $imageResIdFromCleaned")
 
         holder.btnAction.text = when (actionType) {
             "update" -> "Update"
