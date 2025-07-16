@@ -29,4 +29,12 @@
     <string name="content_desc_item_image">Item image preview</string>
     <string name="text_notes">Notes</string>
     <string name="title_all_rentals">All Current Rentals</string>
+    <string name="formal_gown_1">Formal Gown 1</string>
+    <string name="formal_gown_2">Formal Gown 2</string>
+    <string name="formal_gown_3">Formal Gown 3</string>
+    <string name="formal_gown_4">Formal Gown 4</string>
+    <string name="maxi_dress_1">Maxi Dress 1</string>
+    <string name="maxi_dress_2">Maxi Dress 2</string>
+    <string name="maxi_dress_3">Maxi Dress 3</string>
+    <string name="maxi_dress_4">Maxi Dress 4</string>
 </resources>
