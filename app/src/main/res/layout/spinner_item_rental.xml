@@ -10,7 +10,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_bg"
+        android:background="@drawable/no_rounded_corners_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="6dp">
@@ -39,7 +39,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_bg"
+        android:background="@drawable/no_rounded_corners_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="6dp">
@@ -68,7 +68,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_bg"
+        android:background="@drawable/no_rounded_corners_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="6dp">
@@ -97,7 +97,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_bg"
+        android:background="@drawable/no_rounded_corners_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="6dp">
@@ -126,7 +126,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_bg"
+        android:background="@drawable/no_rounded_corners_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="6dp">
@@ -155,7 +155,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_bg"
+        android:background="@drawable/no_rounded_corners_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="6dp">
@@ -184,7 +184,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_bg"
+        android:background="@drawable/no_rounded_corners_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="6dp">
@@ -213,7 +213,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_bg"
+        android:background="@drawable/no_rounded_corners_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="6dp">
