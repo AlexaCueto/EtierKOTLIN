@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_light"
+    android:background="@drawable/login_bg_4"
     tools:context=".MainActivity">
 
-
-    <!-- ETIER White Logo -->
+    <!-- toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/mainToolBar"
         android:layout_width="0dp"
@@ -19,7 +18,6 @@
         android:contentInsetStartWithNavigation="0dp"
         android:padding="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -27,64 +25,57 @@
         app:titleTextAppearance="@style/ToolbarTitleBold"
         app:titleTextColor="@android:color/white" />
 
+    <!-- logo -->
+
+    <!-- tagline -->
+
+    <!-- welcome title -->
     <ImageView
         android:id="@+id/MainLogo"
         android:layout_width="250dp"
         android:layout_height="100dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="96dp"
         android:importantForAccessibility="no"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/etier_logo_transparent" />
+        app:srcCompat="@drawable/etier_white_logo_transparent" />
 
-    <!-- Frosted Glass Container -->
-
+    <!-- main button container -->
     <TextView
         android:id="@+id/textViewWelcomeMessage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/proximanova_regular"
         android:letterSpacing="0.02"
         android:text="Where Women Wear Confidence"
         android:textAlignment="center"
-        android:textColor="#E5B410"
-        android:textSize="16sp"
+        android:textColor="#FBF4F4"
+        android:textSize="18sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/MainLogo" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="24dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="24dp" />
-
     <TextView
         android:id="@+id/textViewWelcome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/proximanova_regular"
         android:letterSpacing="0.02"
-        android:text="Admin Dashboard for Apparel Rental Record"
+        android:text="Admin Dashboard"
         android:textAlignment="center"
-        android:textColor="#E5B410"
-        android:textSize="23sp"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewWelcomeMessage" />
 
     <LinearLayout
@@ -92,82 +83,77 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:background="@drawable/rounded_container"
-        android:elevation="6dp"
         android:orientation="vertical"
         android:padding="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        android:background="@drawable/rounded_container"
+        android:elevation="6dp"
+        app:layout_constraintTop_toBottomOf="@id/textViewWelcome"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewWelcome">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Add Rental -->
+        <!-- unified styled buttons -->
         <Button
             android:id="@+id/buttonAddRental"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#e2ac02"
-            android:elevation="6dp"
-            android:fontFamily="@font/proximanova_regular"
+            android:layout_height="48dp"
+            android:backgroundTint="#FFFFFF"
             android:text="Add Rental"
-            android:textColor="#FFFFFF"
+            android:textColor="#E2AC02"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:elevation="6dp"
+            android:fontFamily="@font/proximanova_regular" />
 
-        <!-- View Rentals -->
         <Button
             android:id="@+id/buttonViewRentals"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginTop="12dp"
-            android:backgroundTint="#e2ac02"
-            android:elevation="6dp"
-            android:fontFamily="@font/proximanova_regular"
+            android:backgroundTint="#FFFFFF"
             android:text="View Rentals"
-            android:textColor="#FFFFFF"
+            android:textColor="#E2AC02"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:elevation="6dp"
+            android:fontFamily="@font/proximanova_regular" />
 
-        <!-- Reports -->
         <Button
             android:id="@+id/buttonReports"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginTop="12dp"
-            android:backgroundTint="#e2ac02"
-            android:elevation="6dp"
-            android:fontFamily="@font/proximanova_regular"
+            android:backgroundTint="#FFFFFF"
             android:text="Update Rental"
-            android:textColor="#FFFFFF"
+            android:textColor="#E2AC02"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:elevation="6dp"
+            android:fontFamily="@font/proximanova_regular" />
 
-        <!-- Update Rental -->
         <Button
             android:id="@+id/buttonUpdateRental"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginTop="12dp"
-            android:backgroundTint="#e2ac02"
-            android:elevation="6dp"
-            android:fontFamily="@font/proximanova_regular"
+            android:backgroundTint="#FFFFFF"
             android:text="Delete Rental"
-            android:textColor="#FFFFFF"
+            android:textColor="#E2AC02"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:elevation="6dp"
+            android:fontFamily="@font/proximanova_regular" />
 
-        <!-- delete Rental -->
         <Button
             android:id="@+id/buttonDeleteRental"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginTop="12dp"
-            android:backgroundTint="#e2ac02"
+            android:backgroundTint="#FFFFFF"
+            android:text="Rental Reports"
+            android:textColor="#E2AC02"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:elevation="6dp"
-            android:fontFamily="@font/proximanova_regular"
-            android:text="View Rental Reports"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/proximanova_regular" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,9 +5,9 @@
     android:background="@drawable/login_bg_4"
     android:padding="16dp">
 
-    <!-- content area -->
+    <!-- container for everything -->
     <LinearLayout
-        android:id="@+id/viewRentalsContainer"
+        android:id="@+id/deleteRentalsContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -16,10 +16,10 @@
 
         <!-- title -->
         <TextView
-            android:id="@+id/textTitle"
+            android:id="@+id/textTitleDeleteRentals"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/title_view_rentals"
+            android:text="Delete Rentals"
             android:textSize="30sp"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
@@ -29,7 +29,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="12dp" />
 
-        <!-- list wrapper -->
+        <!-- recycler view inside rounded container -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -47,20 +47,18 @@
                 android:layout_marginHorizontal="8dp"
                 android:elevation="6dp">
 
-                <ListView
-                    android:id="@+id/listViewRentals"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewRentals"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:divider="@android:color/white"
-                    android:dividerHeight="0.6dp"
                     android:overScrollMode="never"
-                    android:paddingVertical="4dp"
-                    android:scrollbars="none" />
+                    android:scrollbars="none"
+                    android:paddingVertical="4dp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
-    <!-- bottom button -->
+    <!-- sticky back button -->
     <LinearLayout
         android:id="@+id/footerButtons"
         android:layout_width="match_parent"

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/dialog_bg"
+    android:background="@drawable/rounded_container"
     android:padding="28dp"
     android:elevation="8dp">
 
@@ -13,42 +13,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_confirm_delete"
-        android:textColor="#0085a4"
+        android:textColor="#E2AC02"
         android:textSize="22sp"
         android:textStyle="bold"
+        android:fontFamily="@font/proximanova_regular"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:letterSpacing="0.03" />
 
     <TextView
         android:id="@+id/textViewDialogMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/message_confirm_delete"
-        android:textColor="#333333"
+        android:textColor="#444444"
         android:textSize="16sp"
+        android:fontFamily="@font/proximanova_regular"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="24dp" />
+        android:layout_marginBottom="24dp"
+        android:letterSpacing="0.01" />
 
     <Button
         android:id="@+id/buttonConfirmDelete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_yes"
-        android:backgroundTint="#ffe401"
+        android:backgroundTint="#E2AC02"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:letterSpacing="0.05"
-        android:elevation="2dp"
-        android:layout_marginBottom="12dp"/>
+        android:fontFamily="@font/proximanova_regular"
+        android:letterSpacing="0.04"
+        android:elevation="4dp"
+        android:layout_marginBottom="12dp" />
 
     <Button
         android:id="@+id/buttonCancelDelete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_no"
-        android:backgroundTint="#cccccc"
-        android:textColor="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
+        android:textColor="#E2AC02"
         android:textStyle="bold"
-        android:letterSpacing="0.05"
-        android:elevation="2dp"/>
+        android:fontFamily="@font/proximanova_regular"
+        android:letterSpacing="0.04"
+        android:elevation="4dp" />
 </LinearLayout>

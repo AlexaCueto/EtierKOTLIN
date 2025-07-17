@@ -1,35 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- base bg -->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="#33FFFFFF" /> <corners android:radius="20dp" />
+            <solid android:color="#99FFFFFF" /> <!-- semi-opaque white -->
+            <corners android:radius="24dp" />
         </shape>
     </item>
 
-    <item android:top="0.5dp" android:left="0.5dp" android:right="0.5dp" android:bottom="0.5dp">
+    <!-- inner subtle fog -->
+    <item android:top="1dp" android:left="1dp" android:right="1dp" android:bottom="1dp">
         <shape android:shape="rectangle">
-            <solid android:color="#1AFFFFFF" />
-            <corners android:radius="19.5dp" /> </shape>
+            <solid android:color="#14FFFFFF" />
+            <corners android:radius="22dp" />
+        </shape>
     </item>
 
+    <!-- soft border -->
     <item>
         <shape android:shape="rectangle">
             <stroke
-                android:width="0.5dp"
-                android:color="#4DFFFFFF" /> <corners android:radius="20dp" />
-            <solid android:color="#AFFDF39A" /> </shape>
+                android:width="1dp"
+                android:color="#33FFFFFF" />
+            <corners android:radius="24dp" />
+        </shape>
     </item>
 
+    <!-- light vertical haze -->
     <item>
         <shape android:shape="rectangle">
             <gradient
                 android:angle="270"
-                android:startColor="#00FFFFFF"
-                android:centerColor="#08FFFFFF"
+                android:startColor="#0DFFFFFF"
+                android:centerColor="#00FFFFFF"
                 android:endColor="#00FFFFFF"
                 android:type="linear" />
-            <corners android:radius="20dp" />
+            <corners android:radius="24dp" />
         </shape>
     </item>
 

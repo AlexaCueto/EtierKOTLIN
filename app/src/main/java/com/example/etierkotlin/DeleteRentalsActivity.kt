@@ -21,7 +21,7 @@ class DeleteRentalsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_rentals)
+        setContentView(R.layout.activity_delete_rentals)
 
         recyclerViewRentals = findViewById(R.id.recyclerViewRentals)
         recyclerViewRentals.layoutManager = LinearLayoutManager(this)
