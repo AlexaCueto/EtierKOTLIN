@@ -1,52 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
-    android:background="@drawable/edittext_bg">
+    android:orientation="vertical"
+    android:background="@drawable/login_bg_3"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_view_rentals"
+        android:textColor="#0085a4"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="20dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/title_view_rentals"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginBottom="16dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:background="@drawable/edittext_bg"
+        android:padding="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="@drawable/rounded_container"
-            android:padding="12dp">
+            android:padding="16dp">
 
-            <!-- RecyclerView inside -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewRentals"
+            <ListView
+                android:id="@+id/listViewRentals"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:overScrollMode="never"
-                android:clipToPadding="false"
-                android:paddingBottom="8dp" />
+                android:layout_height="match_parent"
+                android:divider="@android:color/darker_gray"
+                android:dividerHeight="1dp"
+                android:scrollbars="none" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/buttonBack"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="@string/button_back"
-            android:textSize="14sp"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="#808080"
-            android:textColor="#ffffff" />
     </LinearLayout>
-</ScrollView>
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_back"
+        android:layout_gravity="start"
+        android:backgroundTint="#808080"
+        android:textColor="#ffffff"
+        android:layout_marginTop="12dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp" />
+</LinearLayout>
