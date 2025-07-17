@@ -18,8 +18,7 @@
             android:background="#E2AC02"
             app:title="ETIER's Profile"
             app:titleTextColor="@android:color/white"
-            app:titleTextAppearance="@style/ToolbarTitleBold"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:titleTextAppearance="@style/ToolbarTitleSmall" />
 
         <ImageButton
             android:id="@+id/backBtn"
