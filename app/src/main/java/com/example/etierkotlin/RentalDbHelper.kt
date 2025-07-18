@@ -181,17 +181,23 @@ class RentalDbHelper(context: Context): SQLiteOpenHelper(context, DB_NAME, null,
         return isRented
     }
 
-    fun getItemNames(category: String): List<String> {
-        val items = mutableListOf<String>()
+    fun getCategoryBreakdown(): List<Pair<String, Int>> {
+        val result = mutableListOf<Pair<String, Int>>()
         val db = readableDatabase
-        val cursor = db.rawQuery("SELECT DISTINCT itemName FROM rentals", null)
+        val cursor = db.rawQuery(
+            "SELECT $COL_CATEGORY, COUNT(*) as count FROM $TB_NAME GROUP BY $COL_CATEGORY",
+            null
+        )
         if (cursor.moveToFirst()) {
             do {
-                items.add(cursor.getString(cursor.getColumnIndexOrThrow("itemName")))
+                val category = cursor.getString(cursor.getColumnIndexOrThrow(COL_CATEGORY))
+                val count = cursor.getInt(cursor.getColumnIndexOrThrow("count"))
+                result.add(Pair(category, count))
             } while (cursor.moveToNext())
         }
         cursor.close()
-        return items
+        db.close()
+        return result
     }
 
 }

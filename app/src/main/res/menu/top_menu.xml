@@ -6,6 +6,11 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/menu_logout"
+        android:title="Log Out"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/menu_exit"
         android:title="Exit App"
         app:showAsAction="never" />

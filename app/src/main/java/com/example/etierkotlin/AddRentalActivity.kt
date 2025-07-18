@@ -116,6 +116,7 @@ class AddRentalActivity : AppCompatActivity() {
         val statusAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, statuses)
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerStatus.adapter = statusAdapter
+
     }
 
     @SuppressLint("DefaultLocale")

@@ -5,25 +5,24 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
-import com.example.etier.database.RentalDbHelper
-import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import com.example.etier.database.RentalDbHelper
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var buttonAddRental: Button
     private lateinit var buttonViewRentals: Button
-    private lateinit var buttonReports: Button
     private lateinit var buttonUpdateRental: Button
     private lateinit var buttonDeleteRental: Button
+    private lateinit var buttonReports: Button
 
     private lateinit var dbHelper: RentalDbHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
         val toolbar: Toolbar = findViewById(R.id.mainToolBar)
         setSupportActionBar(toolbar)
@@ -36,28 +35,39 @@ class MainActivity : AppCompatActivity() {
         buttonDeleteRental = findViewById(R.id.buttonDeleteRental)
         buttonReports = findViewById(R.id.buttonReports)
 
-        setupButtons()
+        setupButtonWithAnimation(buttonAddRental, AddRentalActivity::class.java)
+        setupButtonWithAnimation(buttonViewRentals, ViewRentalsActivity::class.java)
+        setupButtonWithAnimation(buttonUpdateRental, UpdateRentalActivity::class.java)
+        setupButtonWithAnimation(buttonDeleteRental, DeleteRentalsActivity::class.java)
+        setupButtonWithAnimation(buttonReports, ReportsActivity::class.java)
     }
 
-    private fun setupButtons() {
-        buttonAddRental.setOnClickListener {
-            startActivity(Intent(this, AddRentalActivity::class.java))
-        }
-
-        buttonViewRentals.setOnClickListener {
-            startActivity(Intent(this, ViewRentalsActivity::class.java))
-        }
-
-        buttonUpdateRental.setOnClickListener {
-            startActivity(Intent(this, UpdateRentalActivity::class.java))
-        }
-
-        buttonDeleteRental.setOnClickListener {
-            startActivity(Intent(this, DeleteRentalsActivity::class.java))
-        }
-
-        buttonReports.setOnClickListener {
-            startActivity(Intent(this, ReportsActivity::class.java))
+    private fun setupButtonWithAnimation(button: Button, targetActivity: Class<*>) {
+        button.setOnClickListener {
+            button.animate()
+                .scaleX(0.85f)
+                .scaleY(0.85f)
+                .alpha(0.7f)
+                .setDuration(100)
+                .withEndAction {
+                    button.animate()
+                        .scaleX(1.05f)
+                        .scaleY(1.05f)
+                        .alpha(1f)
+                        .setDuration(100)
+                        .withEndAction {
+                            button.animate()
+                                .scaleX(1f)
+                                .scaleY(1f)
+                                .setDuration(50)
+                                .withEndAction {
+                                    startActivity(Intent(this, targetActivity))
+                                }
+                                .start()
+                        }
+                        .start()
+                }
+                .start()
         }
     }
 
@@ -76,6 +86,10 @@ class MainActivity : AppCompatActivity() {
                 showExitConfirmationDialog()
                 true
             }
+            R.id.menu_logout -> {
+                showLogoutConfirmationDialog()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -85,6 +99,20 @@ class MainActivity : AppCompatActivity() {
             .setTitle("Exit App")
             .setMessage("Are you sure you want to exit?")
             .setPositiveButton("Yes") { _, _ -> finishAffinity() }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun showLogoutConfirmationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Log Out")
+            .setMessage("Are you sure you want to log out?")
+            .setPositiveButton("Yes") { _, _ ->
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
+            }
             .setNegativeButton("Cancel", null)
             .show()
     }

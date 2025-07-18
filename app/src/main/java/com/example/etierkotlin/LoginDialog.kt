@@ -26,7 +26,6 @@ class LoginDialog : DialogFragment() {
 
         val dialog = builder.setView(view).create()
 
-        // PARA LUMABAS ROUNDED CORNER
         // Set the dialog's window background to transparent
         // This allows your custom rounded background drawable to be visible.
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
