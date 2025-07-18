@@ -55,10 +55,7 @@ class ReportsActivity : AppCompatActivity() { // Remove the generic type paramet
         val dataSet = PieDataSet(entries, "Category Breakdown")
         dataSet.colors = listOf(
             Color.parseColor("#FFA726"),
-            Color.parseColor("#66BB6A"),
-            Color.parseColor("#29B6F6"),
-            Color.parseColor("#AB47BC"),
-            Color.parseColor("#FF7043")
+            Color.parseColor("#29B6F6")
         )
         dataSet.valueTextSize = 14f
         dataSet.valueTextColor = Color.WHITE
