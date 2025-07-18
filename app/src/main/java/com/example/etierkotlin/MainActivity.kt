@@ -32,9 +32,9 @@ class MainActivity : AppCompatActivity() {
 
         buttonAddRental = findViewById(R.id.buttonAddRental)
         buttonViewRentals = findViewById(R.id.buttonViewRentals)
-        buttonReports = findViewById(R.id.buttonReports)
         buttonUpdateRental = findViewById(R.id.buttonUpdateRental)
         buttonDeleteRental = findViewById(R.id.buttonDeleteRental)
+        buttonReports = findViewById(R.id.buttonReports)
 
         setupButtons()
     }

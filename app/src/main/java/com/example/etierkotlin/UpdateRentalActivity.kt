@@ -1,33 +1,35 @@
 package com.example.etierkotlin
 
+import ItemSpinnerAdapter
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.etier.database.RentalDbHelper
 import com.example.etierkotlin.adapter.RentalAdapter
 import com.example.etierkotlin.model.Rental
+import com.example.etierkotlin.model.SpinnerItem
+import com.example.etierkotlin.utils.Utils
 import java.text.SimpleDateFormat
 import java.util.*
 
 class UpdateRentalActivity : AppCompatActivity() {
 
-    private lateinit var recyclerViewRentals: RecyclerView
+    private lateinit var listViewRentals: ListView
     private lateinit var dbHelper: RentalDbHelper
     private lateinit var adapter: RentalAdapter
-    private val calendar = Calendar.getInstance()
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_rentals)
 
-        recyclerViewRentals = findViewById(R.id.recyclerViewRentals)
-        recyclerViewRentals.layoutManager = LinearLayoutManager(this)
+        val buttonBack = findViewById<Button>(R.id.buttonBack)
+        buttonBack.setOnClickListener { finish() }
 
+        listViewRentals = findViewById(R.id.listViewRentals)
         dbHelper = RentalDbHelper(this)
 
         if (dbHelper.getAllRentals().isEmpty()) {
@@ -41,10 +43,16 @@ class UpdateRentalActivity : AppCompatActivity() {
 
     private fun refreshRentalList() {
         val rentals = dbHelper.getAllRentals()
+        if (rentals.isEmpty()) {
+            Toast.makeText(this, "No rentals to update", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
+
         adapter = RentalAdapter(rentals, this, "update") { rental ->
             showFullEditDialog(rental)
         }
-        recyclerViewRentals.adapter = adapter
+        listViewRentals.adapter = adapter
     }
 
     private fun showFullEditDialog(rental: Rental) {
@@ -66,9 +74,34 @@ class UpdateRentalActivity : AppCompatActivity() {
         spinnerCategory.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, categories)
         spinnerCategory.setSelection(categories.indexOf(rental.category))
 
-        val items = dbHelper.getItemNames(spinnerCategory.selectedItem.toString())
-        spinnerItemName.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, items)
-        spinnerItemName.setSelection(items.indexOf(rental.itemName).takeIf { it >= 0 } ?: 0)
+        fun updateItemSpinner(selectedCategory: String, selectedItemName: String?) {
+            val items = Utils.getAvailableItemsForCategory(selectedCategory)
+            val spinnerItems = items.map { itemName ->
+                SpinnerItem(itemName, Utils.getImageResForItem(itemName))
+            }
+
+            val itemAdapter = ItemSpinnerAdapter(this, spinnerItems)
+            spinnerItemName.adapter = itemAdapter
+
+            val itemIndex = spinnerItems.indexOfFirst { it.name == selectedItemName }
+            spinnerItemName.setSelection(if (itemIndex >= 0) itemIndex else 0)
+        }
+
+        updateItemSpinner(rental.category, rental.itemName)
+
+        var isFirstCategorySelection = true
+        spinnerCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                if (isFirstCategorySelection) {
+                    isFirstCategorySelection = false
+                } else {
+                    val selectedCategory = parent.getItemAtPosition(position).toString()
+                    updateItemSpinner(selectedCategory, null)
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
 
         editRenterFName.setText(rental.renterFirstName)
         editRenterLName.setText(rental.renterLastName)
@@ -86,15 +119,9 @@ class UpdateRentalActivity : AppCompatActivity() {
             val cal = Calendar.getInstance()
             val listener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
                 cal.set(year, month, day)
-                editText.setText(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(cal.time))
+                editText.setText(dateFormat.format(cal.time))
             }
-            DatePickerDialog(
-                this,
-                listener,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)
-            ).show()
+            DatePickerDialog(this, listener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
         }
 
         editRentalDate.setOnClickListener { showDatePicker(editRentalDate) }
@@ -107,9 +134,10 @@ class UpdateRentalActivity : AppCompatActivity() {
 
         buttonSave.setOnClickListener {
             try {
+                val selectedSpinnerItem = spinnerItemName.selectedItem as SpinnerItem
                 val updatedRental = rental.copy(
                     category = spinnerCategory.selectedItem.toString(),
-                    itemName = spinnerItemName.selectedItem.toString(),
+                    itemName = selectedSpinnerItem.name,
                     renterFirstName = editRenterFName.text.toString().trim(),
                     renterLastName = editRenterLName.text.toString().trim(),
                     rentalDate = editRentalDate.text.toString().trim(),
@@ -133,25 +161,13 @@ class UpdateRentalActivity : AppCompatActivity() {
     private fun updateRental(updatedRental: Rental) {
         try {
             if (dbHelper.updateRental(updatedRental)) {
-                Toast.makeText(
-                    this,
-                    "${updatedRental.itemName} updated successfully",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this, "${updatedRental.itemName} updated successfully", Toast.LENGTH_SHORT).show()
                 refreshRentalList()
             } else {
-                Toast.makeText(
-                    this,
-                    "Failed to update ${updatedRental.itemName}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this, "Failed to update ${updatedRental.itemName}", Toast.LENGTH_SHORT).show()
             }
         } catch (e: Exception) {
-            Toast.makeText(
-                this,
-                "Error updating rental: ${e.message}",
-                Toast.LENGTH_LONG
-            ).show()
+            Toast.makeText(this, "Error updating rental: ${e.message}", Toast.LENGTH_LONG).show()
         }
     }
 }

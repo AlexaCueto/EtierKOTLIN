@@ -6,18 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.recyclerview.widget.RecyclerView
 import com.example.etierkotlin.R
 import com.example.etierkotlin.model.Rental
+import com.example.etierkotlin.utils.Utils
 
 class RentalAdapter(
     private val rentalList: List<Rental>,
     private val context: Context,
-    private val actionType: String, //"update" or "delete"
+    private val actionType: String, // "update" or "delete"
     private val onActionClick: (Rental) -> Unit
-) : RecyclerView.Adapter<RentalAdapter.RentalViewHolder>() {
+) : BaseAdapter() {
 
-    class RentalViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    private class ViewHolder(itemView: View) {
         val textRenterId: TextView = itemView.findViewById(R.id.textRenterId)
         val textItemName: TextView = itemView.findViewById(R.id.textItemName)
         val imageApparel: ImageView = itemView.findViewById(R.id.imageApparel)
@@ -29,47 +29,60 @@ class RentalAdapter(
         val btnAction: Button = itemView.findViewById(R.id.btnUpdateOrDelete)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RentalViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_rental, parent, false)
-        return RentalViewHolder(view)
-    }
+    override fun getCount(): Int = rentalList.size
 
-    override fun onBindViewHolder(holder: RentalViewHolder, position: Int){
-        val rental = rentalList[position]
+    override fun getItem(position: Int): Any = rentalList[position]
+
+    override fun getItemId(position: Int): Long = position.toLong()
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        val view: View
+        val holder: ViewHolder
+
+        if (convertView == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.recycler_item_rental, parent, false)
+            holder = ViewHolder(view)
+            view.tag = holder
+        } else {
+            view = convertView
+            holder = view.tag as ViewHolder
+        }
+
+        val rental = getItem(position) as Rental
         holder.textRenterId.text = "ID: ${rental.renterId}"
         holder.textItemName.text = rental.itemName
         holder.textCategory.text = "Category: ${rental.category}"
         holder.textRenterName.text = "Renter: ${rental.renterFirstName} ${rental.renterLastName}"
         holder.textRentalDates.text = "Rental: ${rental.rentalDate} | Return: ${rental.returnDate}"
         holder.textStatus.text = "Status: ${rental.status}"
+        holder.textNotes.text = "Notes: ${rental.notes}"
 
-        val cleanImageName = rental.imageName
-            .replace(".jpg", "")
-            .replace(".png", "")
-            .replace(".webp", "")
+        val imageName = Utils.getImageNameForItem(rental.itemName)
+        val imageResId = context.resources.getIdentifier(imageName, "drawable", context.packageName)
 
-        val imageResIdFromCleaned = context.resources.getIdentifier(cleanImageName, "drawable", context.packageName)
-
-        if (imageResIdFromCleaned != 0) {
-            holder.imageApparel.setImageResource(imageResIdFromCleaned)
+        if (imageResId != 0) {
+            holder.imageApparel.setImageResource(imageResId)
         } else {
             holder.imageApparel.setImageResource(R.drawable.etier_logo_transp)
         }
-        Log.d("RentalAdapter", "Image name: ${rental.imageName}, Cleaned Name: $cleanImageName, ResID: $imageResIdFromCleaned")
 
-        holder.btnAction.text = when (actionType) {
-            "update" -> "Update"
-            "delete" -> "Delete"
-            else -> "Action"
+        //Action button logic
+        if (actionType == "view") {
+            holder.btnAction.visibility = View.GONE
+        } else {
+            holder.btnAction.visibility = View.VISIBLE
+            holder.btnAction.text = when (actionType) {
+                "update" -> "Update"
+                "delete" -> "Delete"
+                else -> "Action"
+            }
+            holder.btnAction.setOnClickListener {
+                onActionClick(rental)
+            }
         }
 
-        holder.btnAction.setOnClickListener {
-            onActionClick(rental)
-        }
+        return view
     }
-
-    override fun getItemCount() = rentalList.size
 }
-
 
 

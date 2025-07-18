@@ -57,24 +57,53 @@
                     android:padding="16dp"
                     android:layout_marginHorizontal="12dp">
 
-                    <!-- All Input Fields -->
-                    <Spinner
-                        android:id="@+id/spinnerCategory"
+                    <!-- Category Spinner with Dropdown Arrow -->
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:layout_marginTop="8dp"
                         android:background="@drawable/edittext_bg"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp" />
+                        android:layout_marginTop="8dp">
 
-                    <Spinner
-                        android:id="@+id/spinnerItemName"
+                        <Spinner
+                            android:id="@+id/spinnerCategory"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="40dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="12dp"
+                            android:src="@android:drawable/arrow_down_float" />
+                    </RelativeLayout>
+
+                    <!-- Item Name Spinner with Dropdown Arrow -->
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:layout_marginTop="8dp"
                         android:background="@drawable/edittext_bg"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp" />
+                        android:layout_marginTop="8dp">
+
+                        <Spinner
+                            android:id="@+id/spinnerItemName"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="40dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="12dp"
+                            android:src="@android:drawable/arrow_down_float" />
+                    </RelativeLayout>
 
                     <EditText
                         android:id="@+id/editRenterFName"
@@ -148,14 +177,29 @@
                         android:layout_marginTop="8dp"
                         android:paddingHorizontal="12dp" />
 
-                    <Spinner
-                        android:id="@+id/spinnerStatus"
+                    <!-- Status Spinner with Dropdown Arrow -->
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:layout_marginTop="8dp"
                         android:background="@drawable/edittext_bg"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp" />
+                        android:layout_marginTop="8dp">
+
+                        <Spinner
+                            android:id="@+id/spinnerStatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="40dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="12dp"
+                            android:src="@android:drawable/arrow_down_float" />
+                    </RelativeLayout>
 
                     <EditText
                         android:id="@+id/editNotes"

@@ -1,34 +1,30 @@
 package com.example.etierkotlin
 
-import android.app.AlertDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.view.View
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.etier.database.RentalDbHelper
-import com.example.etierkotlin.adapter.RentalAdapter
+import com.example.etierkotlin.adapter.DeleteRentalListAdapter
 import com.example.etierkotlin.model.Rental
 
 class DeleteRentalsActivity : AppCompatActivity() {
 
-    private lateinit var recyclerViewRentals: RecyclerView
+    private lateinit var listViewRentals: ListView
     private lateinit var dbHelper: RentalDbHelper
-    private lateinit var adapter: RentalAdapter
+    private lateinit var adapter: DeleteRentalListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_delete_rentals)
+        setContentView(R.layout.activity_view_rentals)
 
-        recyclerViewRentals = findViewById(R.id.recyclerViewRentals)
-        recyclerViewRentals.layoutManager = LinearLayoutManager(this)
+        val buttonBack = findViewById<Button>(R.id.buttonBack)
+        buttonBack.setOnClickListener { finish() }
 
+        listViewRentals = findViewById(R.id.listViewRentals)
         dbHelper = RentalDbHelper(this)
 
-        // Set action type for adapter
         refreshRentalList()
     }
 
@@ -40,62 +36,43 @@ class DeleteRentalsActivity : AppCompatActivity() {
             return
         }
 
-        adapter = RentalAdapter(rentals, this, "delete") { rental ->
-            showDeleteConfirmation(rental)
+        adapter = DeleteRentalListAdapter(this, rentals) { rental ->
+            showDeleteConfirmationDialog(rental)
         }
-        recyclerViewRentals.adapter = adapter
+        listViewRentals.adapter = adapter
     }
 
-    private fun showDeleteConfirmation(rental: Rental) {
-        // Inflate custom dialog layout
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_delete_confirmation, null)
+    private fun showDeleteConfirmationDialog(rental: Rental) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_delete_confirmation, null)
 
-        // Initialize UI elements
-        val title = dialogView.findViewById<TextView>(R.id.textViewDialogTitle)
-        val message = dialogView.findViewById<TextView>(R.id.textViewDialogMessage)
-        val confirmButton = dialogView.findViewById<Button>(R.id.buttonConfirmDelete)
-        val cancelButton = dialogView.findViewById<Button>(R.id.buttonCancelDelete)
+        val textTitle = dialogView.findViewById<TextView>(R.id.textViewDialogTitle)
+        val textMessage = dialogView.findViewById<TextView>(R.id.textViewDialogMessage)
+        val buttonConfirm = dialogView.findViewById<Button>(R.id.buttonConfirmDelete)
+        val buttonCancel = dialogView.findViewById<Button>(R.id.buttonCancelDelete)
 
-        // Customize dialog content
-        title.text = "Confirm Delete"
-        message.text = "Are you sure you want to delete rental for:\n${rental.itemName}?"
+        textTitle.text = "Confirm Deletion"
+        textMessage.text = "Are you sure you want to delete ${rental.itemName} rented by ${rental.renterFirstName} ${rental.renterLastName}?"
 
-        // Build dialog
-        val builder = AlertDialog.Builder(this)
+        val dialog = AlertDialog.Builder(this)
             .setView(dialogView)
             .setCancelable(false)
+            .create()
 
-        val dialog = builder.create()
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-
-        // Set button actions
-        confirmButton.setOnClickListener {
+        buttonConfirm.setOnClickListener {
             try {
                 if (dbHelper.deleteRental(rental.renterId)) {
-                    Toast.makeText(
-                        this,
-                        "${rental.itemName} deleted successfully",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this, "${rental.itemName} deleted successfully.", Toast.LENGTH_SHORT).show()
                     refreshRentalList()
                 } else {
-                    Toast.makeText(
-                        this,
-                        "Failed to delete ${rental.itemName}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this, "Failed to delete ${rental.itemName}.", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(
-                    this,
-                    "Error deleting rental: ${e.message}",
-                    Toast.LENGTH_LONG
-                ).show()
+                Toast.makeText(this, "Error deleting rental: ${e.message}", Toast.LENGTH_LONG).show()
             }
             dialog.dismiss()
         }
 
-        cancelButton.setOnClickListener {
+        buttonCancel.setOnClickListener {
             dialog.dismiss()
         }
 

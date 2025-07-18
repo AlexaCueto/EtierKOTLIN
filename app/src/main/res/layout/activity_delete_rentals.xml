@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_above="@+id/footerButtons"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"/>
 
         <!-- title -->
         <TextView
@@ -29,34 +29,39 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="12dp" />
 
-        <!-- recycler view inside rounded container -->
+        <!-- LISTVIEW view inside rounded container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:background="@color/gmp_ref_palette_neutral_transparent"
+        android:padding="8dp">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/gmp_ref_palette_neutral_transparent"
-            android:padding="8dp">
+            android:background="@drawable/rounded_container"
+            android:padding="16dp"
+            android:layout_marginHorizontal="8dp"
+            android:elevation="6dp">
 
-            <LinearLayout
+            <!-- Replace RecyclerView with ListView -->
+            <ListView
+                android:id="@+id/listViewRentals"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@drawable/rounded_container"
-                android:padding="16dp"
-                android:layout_marginHorizontal="8dp"
-                android:elevation="6dp">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:divider="@android:color/white"
+                android:dividerHeight="0.6dp"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                android:paddingVertical="4dp" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewRentals"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:overScrollMode="never"
-                    android:scrollbars="none"
-                    android:paddingVertical="4dp" />
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
 
     <!-- sticky back button -->
     <LinearLayout

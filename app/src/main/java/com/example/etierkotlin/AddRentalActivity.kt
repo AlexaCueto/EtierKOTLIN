@@ -1,18 +1,19 @@
 package com.example.etierkotlin
 
+import ItemSpinnerAdapter
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.etier.database.RentalDbHelper
 import com.example.etierkotlin.model.Rental
+import com.example.etierkotlin.model.SpinnerItem
 import com.example.etierkotlin.utils.Utils
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
@@ -26,9 +27,6 @@ import java.util.*
 
 class AddRentalActivity : AppCompatActivity() {
 
-    private lateinit var retrofit: Retrofit
-    private lateinit var locationIQApi: LocationIQApi
-    private lateinit var addressSuggestions: ArrayAdapter<String>
     private lateinit var spinnerCategory: Spinner
     private lateinit var spinnerItemName: Spinner
     private lateinit var editRenterFName: EditText
@@ -40,16 +38,17 @@ class AddRentalActivity : AppCompatActivity() {
     private lateinit var editNotes: EditText
     private lateinit var editAddress: EditText
     private lateinit var buttonSaveRental: Button
-
     private lateinit var dbHelper: RentalDbHelper
 
+    private lateinit var addressSuggestions: ArrayAdapter<String>
+    private lateinit var retrofit: Retrofit
+    private lateinit var locationIQApi: LocationIQApi
     private lateinit var autocompleteLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_rental)
 
-        //Initialize views first
         spinnerCategory = findViewById(R.id.spinnerCategory)
         spinnerItemName = findViewById(R.id.spinnerItemName)
         editRenterFName = findViewById(R.id.editRenterFName)
@@ -69,51 +68,21 @@ class AddRentalActivity : AppCompatActivity() {
             .baseUrl("https://api.locationiq.com/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
         locationIQApi = retrofit.create(LocationIQApi::class.java)
 
-        //EditAddress to AutoCompleteTextView before setting adapter
         addressSuggestions = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, mutableListOf())
         (editAddress as AutoCompleteTextView).setAdapter(addressSuggestions)
-
-        setupAddressAutocomplete()
 
         setupCategorySpinner()
         setupStatusSpinner()
         setupDatePicker(editRentalDate)
         setupDatePicker(editReturnDate)
-
-        buttonSaveRental.setOnClickListener {
-            saveRentalRecord()
-        }
-
+        setupAddressAutocomplete()
         setupAutocompleteLauncher()
-        editAddress.setOnClickListener {
-            startAutocomplete()
-        }
 
-        buttonBack.setOnClickListener{
-            finish()
-        }
-    }
-
-    private fun setupAutocompleteLauncher() {
-        autocompleteLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                val place = Autocomplete.getPlaceFromIntent(result.data!!)
-                editAddress.setText(place.address)
-            } else if (result.resultCode == AutocompleteActivity.RESULT_ERROR) {
-                // Handle the error.
-                val status = Autocomplete.getStatusFromIntent(result.data!!)
-                Toast.makeText(this, "Error: ${status.statusMessage}", Toast.LENGTH_LONG).show()
-            }
-        }
-    }
-
-    private fun startAutocomplete() {
-        val fields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS)
-        val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).build(this)
-        autocompleteLauncher.launch(intent)
+        buttonSaveRental.setOnClickListener { saveRentalRecord() }
+        editAddress.setOnClickListener { startAutocomplete() }
+        buttonBack.setOnClickListener { finish() }
     }
 
     private fun setupCategorySpinner() {
@@ -122,26 +91,24 @@ class AddRentalActivity : AppCompatActivity() {
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerCategory.adapter = categoryAdapter
 
-        spinnerCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                val selectedCategory = categories[position]
-                setupItemNameSpinner(selectedCategory)
+        fun updateItemSpinner(selectedCategory: String) {
+            val items = Utils.getAvailableItemsForCategory(selectedCategory)
+            val spinnerItems = items.map { itemName ->
+                SpinnerItem(itemName, Utils.getImageResForItem(itemName))
             }
+            spinnerItemName.adapter = ItemSpinnerAdapter(this, spinnerItems)
+        }
 
+        //Initial load with first category
+        updateItemSpinner(categories[0])
+
+        spinnerCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: android.view.View?, position: Int, id: Long) {
+                val selectedCategory = categories[position]
+                updateItemSpinner(selectedCategory)
+            }
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
-    }
-
-    private fun setupItemNameSpinner(category: String) {
-        val items = when (category) {
-            "Maxi Dress" -> listOf("Off-Shoulder Sakura Maxi Dress", "Hibiscus Dream Ruffled Midi", "Royal Blue Tiered Cami Maxi", "Lemon Drop Strapless Maxi")
-            "Formal Gown" -> listOf("Classic Black Halter Neck Gown", "Champagne Sequin Gown", "Rose Gold Sequin Sparkle Gown", "Fuchsia One-Shoulder A-Line Overlay Gown")
-            else -> listOf()
-        }
-
-        val itemAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, items)
-        itemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerItemName.adapter = itemAdapter
     }
 
     private fun setupStatusSpinner() {
@@ -155,18 +122,12 @@ class AddRentalActivity : AppCompatActivity() {
     private fun setupDatePicker(editText: EditText) {
         editText.setOnClickListener {
             val c = Calendar.getInstance()
-            val year = c.get(Calendar.YEAR)
-            val month = c.get(Calendar.MONTH)
-            val day = c.get(Calendar.DAY_OF_MONTH)
-            val dpd = DatePickerDialog(this, { _, y, m, d ->
-                val formattedDate = String.format("%04d-%02d-%02d", y, m + 1, d)
-                editText.setText(formattedDate)
-            }, year, month, day)
-            dpd.show()
+            DatePickerDialog(this, { _, y, m, d ->
+                editText.setText(String.format("%04d-%02d-%02d", y, m + 1, d))
+            }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show()
         }
     }
 
-    //for the autocomplete service
     private fun setupAddressAutocomplete() {
         editAddress.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -185,23 +146,39 @@ class AddRentalActivity : AppCompatActivity() {
                                     addressSuggestions.notifyDataSetChanged()
                                 }
                             }
-
                             override fun onFailure(call: Call<List<LocationIQPlace>>, t: Throwable) {
                                 Toast.makeText(this@AddRentalActivity, "Failed to fetch addresses", Toast.LENGTH_SHORT).show()
                             }
                         })
                 }
             }
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
     }
 
+    private fun setupAutocompleteLauncher() {
+        autocompleteLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val place = Autocomplete.getPlaceFromIntent(result.data!!)
+                editAddress.setText(place.address)
+            } else if (result.resultCode == AutocompleteActivity.RESULT_ERROR) {
+                val status = Autocomplete.getStatusFromIntent(result.data!!)
+                Toast.makeText(this, "Error: ${status.statusMessage}", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun startAutocomplete() {
+        val fields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS)
+        val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).build(this)
+        autocompleteLauncher.launch(intent)
+    }
 
     private fun saveRentalRecord() {
-        val itemName = spinnerItemName.selectedItem?.toString() ?: ""
+        val selectedSpinnerItem = spinnerItemName.selectedItem as SpinnerItem
         val selectedCategory = spinnerCategory.selectedItem.toString()
+
         val renterFirstName = editRenterFName.text.toString().trim()
         val renterLastName = editRenterLName.text.toString().trim()
         val rentalDate = editRentalDate.text.toString().trim()
@@ -211,15 +188,20 @@ class AddRentalActivity : AppCompatActivity() {
         val notes = editNotes.text.toString().trim()
         val address = editAddress.text.toString().trim()
 
-        if (itemName.isNotEmpty() && renterFirstName.isNotEmpty() && renterLastName.isNotEmpty()
+        if (selectedSpinnerItem.name.isNotEmpty() && renterFirstName.isNotEmpty() && renterLastName.isNotEmpty()
             && rentalDate.isNotEmpty() && returnDate.isNotEmpty() && price != null && address.isNotEmpty()
         ) {
+            // Check if item is already rented
+            if (dbHelper.isItemRented(selectedSpinnerItem.name)) {
+                Toast.makeText(this, "${selectedSpinnerItem.name} is already rented out!", Toast.LENGTH_SHORT).show()
+                return
+            }
+
             val renterId = UUID.randomUUID().toString().take(8)
-            val imageName = Utils.getImageNameForItem(itemName)
 
             val rental = Rental(
                 renterId = renterId,
-                itemName = itemName,
+                itemName = selectedSpinnerItem.name,
                 category = selectedCategory,
                 renterFirstName = renterFirstName,
                 renterLastName = renterLastName,
@@ -229,7 +211,7 @@ class AddRentalActivity : AppCompatActivity() {
                 price = price,
                 status = status,
                 notes = notes,
-                imageName = imageName
+                imageName = Utils.getImageNameForItem(selectedSpinnerItem.name)
             )
 
             val success = dbHelper.addRental(rental)
@@ -244,6 +226,7 @@ class AddRentalActivity : AppCompatActivity() {
             Toast.makeText(this, "Please fill out all required fields.", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     private fun clearFields() {
         spinnerCategory.setSelection(0)
