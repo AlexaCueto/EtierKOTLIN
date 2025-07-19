@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#E2AC02"
-            app:title="ETIER's Profile"
+            app:title="BeyondOne Profile"
             app:titleTextColor="@android:color/white"
             app:titleTextAppearance="@style/ToolbarTitleSmall" />
 
