@@ -1,11 +1,13 @@
 package com.example.etierkotlin.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.BaseAdapter
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import com.example.etierkotlin.R
 import com.example.etierkotlin.model.Rental
 import com.example.etierkotlin.utils.Utils
@@ -25,6 +27,7 @@ class RentalAdapter(
         val textRenterName: TextView = itemView.findViewById(R.id.textRenterName)
         val textRentalDates: TextView = itemView.findViewById(R.id.textRentalDates)
         val textStatus: TextView = itemView.findViewById(R.id.textStatus)
+        val textPrice: TextView = itemView.findViewById(R.id.textPrice)
         val textNotes: TextView = itemView.findViewById(R.id.textNotes)
         val btnAction: Button = itemView.findViewById(R.id.btnUpdateOrDelete)
     }
@@ -55,6 +58,7 @@ class RentalAdapter(
         holder.textRenterName.text = "Renter: ${rental.renterFirstName} ${rental.renterLastName}"
         holder.textRentalDates.text = "Rental: ${rental.rentalDate} | Return: ${rental.returnDate}"
         holder.textStatus.text = "Status: ${rental.status}"
+        holder.textPrice.text = "Price: ₱${rental.price}"
         holder.textNotes.text = "Notes: ${rental.notes}"
 
         val imageName = Utils.getImageNameForItem(rental.itemName)
